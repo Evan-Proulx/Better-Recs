@@ -1,17 +1,26 @@
 import {Component, OnInit} from '@angular/core';
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-test',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule
+  ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.css'
 })
 export class TestComponent implements OnInit {
+  searchText: string = "";
+
   private accessToken: string = "";
+  private artistId: string = "";
+  private artists: string[] = [];
   constructor(private spotifyService: SpotifyApiService) { }
+
   ngOnInit(): void {
+    //Gets the access token when the app first loads
     this.spotifyService.getToken().subscribe({
       next: (data) => {
         this.accessToken = data.access_token;
@@ -19,6 +28,43 @@ export class TestComponent implements OnInit {
       },
       error: (error) => {
         console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
+  }
+
+  //adds the artist id to the array of artists
+  addArtist(): void {
+    this.artists.push(this.artistId);
+    this.searchText = '';
+    console.log(this.artists)
+  }
+
+  //gets the artist id from the artist
+  getArtist(): void {
+    if (this.searchText){
+      this.spotifyService.getArtist(this.searchText, this.accessToken).subscribe({
+        next: (data) => {
+          console.log(data.artists.items[0].id);
+          this.artistId = data.artists.items[0].id;
+        },
+        error: (error) => {
+          console.error("ERROR FETCHING ARTIST: ", error);
+        }
+      });
+    }else{
+      console.log("Please enter an artist name");
+    }
+  }
+
+
+  //gets recommendations based on artists in given array
+  getRecommendations(): void {
+    this.spotifyService.getRecommendations(this.accessToken, this.artists).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
       }
     });
   }

@@ -24,4 +24,24 @@ export class SpotifyApiService {
 
     return this.http.post<any>(this.tokenUrl, body.toString(), {headers});
   }
+
+  getArtist(artist: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+
+    return this.http.get<any>(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {headers});
+  }
+
+  getRecommendations(token: string, artists: string[]): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}`,
+      {headers});
+  }
 }
