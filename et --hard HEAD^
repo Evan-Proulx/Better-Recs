@@ -1,0 +1,30 @@
+[33mcommit dc641250514290ecc2ab8f05ce5cad7b3b86a401[m[33m ([m[1;36mHEAD -> [m[1;32mapi-testing[m[33m)[m
+Author: eproulx <w0816747@myscc.ca>
+Date:   Thu May 16 12:04:51 2024 -0400
+
+    -Added methods to get an artists id.
+    -Added methods that get recommended tracks based on a given array of artists
+
+[33mcommit 6de4e07af70ab55d963838ccdf02766c11c23086[m
+Author: eproulx <w0816747@myscc.ca>
+Date:   Thu May 16 11:53:34 2024 -0400
+
+    Added code to get user access token from the spotify api
+
+[33mcommit e03b2cde65c5a6be7e74cfc6ac78bd9773043227[m
+Author: eproulx <w0816747@myscc.ca>
+Date:   Thu May 16 11:34:08 2024 -0400
+
+    Added code to get user access token from the spotify api
+
+[33mcommit 51edae8e3d7d4d43a2e58665a4e03b02c9082c17[m[33m ([m[1;32mmain[m[33m, [m[1;32mdevelopment[m[33m)[m
+Author: eproulx <w0816747@myscc.ca>
+Date:   Thu May 16 11:17:25 2024 -0400
+
+    initial commit
+
+[33mcommit 156544d39cd83fd97ee20b21fcf0f4de3d2497ae[m
+Author: eproulx <w0816747@myscc.ca>
+Date:   Thu May 16 11:12:59 2024 -0400
+
+    initial commit

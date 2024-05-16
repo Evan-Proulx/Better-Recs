@@ -1,18 +1,25 @@
 import {Component, OnInit} from '@angular/core';
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
 import {FormsModule} from "@angular/forms";
+import {ArtistListComponent} from "../artist-list/artist-list.component";
+import {Artist} from "../models/artist";
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-test',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
+    ArtistListComponent,
+    NgForOf,
+    NgIf
   ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.css'
 })
 export class TestComponent implements OnInit {
   searchText: string = "";
+  artistList: Artist[] = [];
 
   private accessToken: string = "";
   private artistId: string = "";
@@ -46,6 +53,7 @@ export class TestComponent implements OnInit {
         next: (data) => {
           console.log(data.artists.items[0].id);
           this.artistId = data.artists.items[0].id;
+          this.artistList = data.artists.items.map((item: any) => new Artist(item));
         },
         error: (error) => {
           console.error("ERROR FETCHING ARTIST: ", error);
