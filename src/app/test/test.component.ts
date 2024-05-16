@@ -10,7 +10,6 @@ import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
 })
 export class TestComponent implements OnInit {
   private accessToken: string = "";
-
   constructor(private spotifyService: SpotifyApiService) { }
   ngOnInit(): void {
     this.spotifyService.getToken().subscribe({
