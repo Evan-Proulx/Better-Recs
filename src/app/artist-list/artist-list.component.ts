@@ -11,7 +11,7 @@ import {Artist} from "../models/artist";
     NgForOf
   ],
   templateUrl: './artist-list.component.html',
-  styleUrl: './artist-list.component.css'
+  styleUrl: './artist-list.component.scss'
 })
 export class ArtistListComponent {
   //list of artists from the test component

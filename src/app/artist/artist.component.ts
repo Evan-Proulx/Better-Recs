@@ -11,7 +11,7 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
     NgIf
   ],
   templateUrl: './artist.component.html',
-  styleUrl: './artist.component.css'
+  styleUrl: './artist.component.scss'
 })
 export class ArtistComponent {
   //single artist from the list

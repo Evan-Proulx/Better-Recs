@@ -7,7 +7,7 @@ import {TestComponent} from "./test/test.component";
   standalone: true,
   imports: [RouterOutlet, TestComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'SpotifyApp';
