@@ -1,10 +1,20 @@
-<input placeholder="Search For an Artist" [(ngModel)]="searchText">
-<button (click)="getArtist()">Search</button>
-<button (click)="addArtist()">Add To list</button>
-<button (click)="getRecommendations()">Get Recs</button>
-
-<div *ngIf="artistList">
-  <app-artist-list [artists]="artistList"></app-artist-list>
-</div>
-
+<mat-drawer-container class="container">
+<!--  left drawer-->
+  <mat-drawer mode="side" opened>
+    <div *ngIf="artistList">
+      <app-artist-list [artists]="artistList"></app-artist-list>
+    </div>
+  </mat-drawer>
+<!--  main content-->
+  <mat-drawer-content>
+    <div class="main-container">
+      <mat-form-field>
+        <input matInput placeholder="Search For an Artist" [(ngModel)]="searchText">
+      </mat-form-field>
+      <button mat-flat-button color="primary" (click)="getArtist()">Search</button>
+      <button mat-flat-button color="primary" (click)="addArtist()">Add To list</button>
+      <button mat-flat-button color="primary" (click)="getRecommendations()">Get Recs</button>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
 

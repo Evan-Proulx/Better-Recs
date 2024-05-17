@@ -6,6 +6,7 @@ export class Artist {
   followers: number;
   externalUrl: string;
   images: { url: string, height: number, width: number }[];
+  isFavorite: boolean = false;
 
   constructor(data: any) {
     this.id = data.id;

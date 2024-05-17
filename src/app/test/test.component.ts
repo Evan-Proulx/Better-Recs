@@ -4,6 +4,10 @@ import {FormsModule} from "@angular/forms";
 import {ArtistListComponent} from "../artist-list/artist-list.component";
 import {Artist} from "../models/artist";
 import {NgForOf, NgIf} from "@angular/common";
+import {MatFormField} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatButton} from "@angular/material/button";
+import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
 
 @Component({
   selector: 'app-test',
@@ -12,7 +16,13 @@ import {NgForOf, NgIf} from "@angular/common";
     FormsModule,
     ArtistListComponent,
     NgForOf,
-    NgIf
+    NgIf,
+    MatFormField,
+    MatInput,
+    MatButton,
+    MatDrawerContent,
+    MatDrawer,
+    MatDrawerContainer
   ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'

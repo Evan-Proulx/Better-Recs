@@ -5,4 +5,5 @@
   <div *ngFor="let genre of contentArtist?.genres">
     <p>{{genre}}</p>
   </div>
+  <button mat-button (click)="toggleFavorite(contentArtist)">favorite</button>
 </div>
