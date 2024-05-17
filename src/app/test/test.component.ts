@@ -8,6 +8,7 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
+import {ArtistService} from "../ArtistService/artist.service";
 
 @Component({
   selector: 'app-test',
@@ -29,12 +30,14 @@ import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material
 })
 export class TestComponent implements OnInit {
   searchText: string = "";
-  artistList: Artist[] = [];
+  selectedArtists: Artist[] = [];
+  favoriteArtists: Artist[] = [];
 
   private accessToken: string = "";
   private artistId: string = "";
   private artists: string[] = [];
-  constructor(private spotifyService: SpotifyApiService) { }
+  constructor(private spotifyService: SpotifyApiService,
+              private artistService: ArtistService) { }
 
   ngOnInit(): void {
     //Gets the access token when the app first loads
@@ -47,14 +50,18 @@ export class TestComponent implements OnInit {
         console.error("ERROR FETCHING TOKEN: ", error);
       }
     });
+
+    this.artistService.artistList$.subscribe(list => {
+      this.favoriteArtists = list;
+    })
   }
 
   //adds the artist id to the array of artists
-  addArtist(): void {
-    this.artists.push(this.artistId);
-    this.searchText = '';
-    console.log(this.artists)
-  }
+  // addArtist(): void {
+  //   this.artists.push(this.artistId);
+  //   this.searchText = '';
+  //   console.log(this.artists)
+  // }
 
   //gets the artist id from the artist
   getArtist(): void {
@@ -63,7 +70,7 @@ export class TestComponent implements OnInit {
         next: (data) => {
           console.log(data.artists.items[0].id);
           this.artistId = data.artists.items[0].id;
-          this.artistList = data.artists.items.map((item: any) => new Artist(item));
+          this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
         },
         error: (error) => {
           console.error("ERROR FETCHING ARTIST: ", error);
