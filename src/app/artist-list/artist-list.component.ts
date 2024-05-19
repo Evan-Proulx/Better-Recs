@@ -16,4 +16,6 @@ import {Artist} from "../models/artist";
 export class ArtistListComponent {
   //list of artists from the test component
   @Input() artists: Artist[] = [];
+
+
 }

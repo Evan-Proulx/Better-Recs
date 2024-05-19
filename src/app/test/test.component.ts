@@ -11,6 +11,7 @@ import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material
 import {ArtistService} from "../ArtistService/artist.service";
 import {Album} from "../models/album";
 import {Track} from "../models/track";
+import {AlbumListComponent} from "../album-list/album-list.component";
 
 @Component({
   selector: 'app-test',
@@ -25,7 +26,8 @@ import {Track} from "../models/track";
     MatButton,
     MatDrawerContent,
     MatDrawer,
-    MatDrawerContainer
+    MatDrawerContainer,
+    AlbumListComponent
   ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
@@ -34,7 +36,9 @@ export class TestComponent implements OnInit {
   searchText: string = "";
   selectedArtists: Artist[] = [];
   favoriteArtists: string[] = [];
-  recommendedAlbums: Track[] = [];
+  recommendedTracks: Track[] = [];
+  recommendedAlbums: Album[] = [];
+
 
   private accessToken: string = "";
   private artistId: string = "";
@@ -79,17 +83,26 @@ export class TestComponent implements OnInit {
   }
 
 
-  //gets recommendations based on artists in given array
+  //gets recommended tracks based on artists in given array
   getRecommendations(): void {
     this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtists).subscribe({
       next: (data) => {
         console.log(data);
-        this.recommendedAlbums = data.tracks.map((item: any) => new Track(item));
+        this.recommendedTracks = data.tracks.map((item: any) => new Track(item));
+        this.getAlbums();
       },
       error: (error) => {
         console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
       }
     });
+  }
+
+  getAlbums(): void {
+    this.recommendedTracks.forEach(track => {
+      this.recommendedAlbums.push(track.album);
+    })
+
+    console.log(this.recommendedAlbums);
   }
 
 }
