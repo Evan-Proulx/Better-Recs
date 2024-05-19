@@ -9,6 +9,8 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
 import {ArtistService} from "../ArtistService/artist.service";
+import {Album} from "../models/album";
+import {Track} from "../models/track";
 
 @Component({
   selector: 'app-test',
@@ -32,6 +34,7 @@ export class TestComponent implements OnInit {
   searchText: string = "";
   selectedArtists: Artist[] = [];
   favoriteArtists: string[] = [];
+  recommendedAlbums: Track[] = [];
 
   private accessToken: string = "";
   private artistId: string = "";
@@ -56,13 +59,6 @@ export class TestComponent implements OnInit {
     })
   }
 
-  //adds the artist id to the array of artists
-  // addArtist(): void {
-  //   this.artists.push(this.artistId);
-  //   this.searchText = '';
-  //   console.log(this.artists)
-  // }
-
   //gets the artist id from the artist
   getArtist(): void {
     if (this.searchText){
@@ -70,6 +66,7 @@ export class TestComponent implements OnInit {
         next: (data) => {
           console.log(data.artists.items[0].id);
           this.artistId = data.artists.items[0].id;
+          console.log(data)
           this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
         },
         error: (error) => {
@@ -87,6 +84,7 @@ export class TestComponent implements OnInit {
     this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtists).subscribe({
       next: (data) => {
         console.log(data);
+        this.recommendedAlbums = data.tracks.map((item: any) => new Track(item));
       },
       error: (error) => {
         console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
