@@ -1,0 +1,45 @@
+.artist{
+  background-color: #383838;
+  color: white;
+  margin: 2em auto;
+  padding: 1em;
+}
+
+a {
+  text-decoration: none; // Remove underline
+  color: inherit; // Inherit the color from the parent
+  &:hover {
+    text-decoration: none; // Remove underline on hover
+  }
+}
+
+img {
+  width: 30%;
+  height: 30%;
+  border-radius: 50%;
+  margin-right: .5em;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.genres {
+  display: flex;
+  flex-wrap: wrap;
+  color: #5e5e5e;
+}
+
+.genres p {
+  margin: 0;
+}
+
+.fav-btn{
+  width: 10%;
+}
+
+mat-icon{
+  color: white;
+}

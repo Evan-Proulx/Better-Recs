@@ -31,7 +31,7 @@ import {ArtistService} from "../ArtistService/artist.service";
 export class TestComponent implements OnInit {
   searchText: string = "";
   selectedArtists: Artist[] = [];
-  favoriteArtists: Artist[] = [];
+  favoriteArtists: string[] = [];
 
   private accessToken: string = "";
   private artistId: string = "";
@@ -84,7 +84,7 @@ export class TestComponent implements OnInit {
 
   //gets recommendations based on artists in given array
   getRecommendations(): void {
-    this.spotifyService.getRecommendations(this.accessToken, this.artists).subscribe({
+    this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtists).subscribe({
       next: (data) => {
         console.log(data);
       },

@@ -1,14 +1,15 @@
 <mat-drawer-container class="container">
-<!--  left drawer-->
-  <mat-drawer mode="side" opened>
-    <div *ngIf="selectedArtists">
-      <app-artist-list [artists]="selectedArtists"></app-artist-list>
-    </div>
-  </mat-drawer>
-<!--  main content-->
+  <!--  left drawer-->
+    <mat-drawer mode="side" opened class="drawer-container">
+      <div *ngIf="selectedArtists">
+        <app-artist-list [artists]="selectedArtists"></app-artist-list>
+      </div>
+    </mat-drawer>
+  <!--  main content-->
   <mat-drawer-content>
     <div class="main-container">
       <mat-form-field>
+        <h2 class="text-7xl">Test</h2>
         <input matInput placeholder="Search For an Artist" [(ngModel)]="searchText">
       </mat-form-field>
       <button mat-flat-button color="primary" (click)="getArtist()">Search</button>

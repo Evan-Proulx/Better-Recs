@@ -9,13 +9,13 @@
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
   height: 5vh; /* Adjust this if you want to control the height */
-  max-width: 20%; /* Set your desired maximum width */
   margin: 0 auto; /* Center horizontally */
   padding: 5%;
 }
 
 .drawer-container{
-  max-width: 20%;
+  min-width: 25%;
+  max-width: 25%;
 }
 
 button{
