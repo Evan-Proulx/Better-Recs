@@ -1,42 +1,36 @@
-<!--<mat-drawer-container class="h-screen pt-20">-->
-<!--  &lt;!&ndash;  left drawer&ndash;&gt;-->
-<!--  <mat-drawer mode="side" opened class="min-w-xs max-w-xs">-->
-<!--    <div *ngIf="selectedArtists">-->
-<!--      <app-artist-list [artists]="selectedArtists"></app-artist-list>-->
-<!--    </div>-->
-<!--  </mat-drawer>-->
-<!--  &lt;!&ndash;  main content&ndash;&gt;-->
-<!--  <mat-drawer-content>-->
-<!--    <div class="flex flex-col items-center justify-center h-5vh mx-auto text-center">-->
-<!--      <mat-form-field class="p-5">-->
-<!--        <input matInput placeholder="Search For an Artist" [(ngModel)]="searchText">-->
-<!--      </mat-form-field>-->
-<!--      <button mat-flat-button color="primary" (click)="getArtist()" class="m-1 p-1">Search</button>-->
-<!--      <button mat-flat-button color="primary" (click)="getRecommendations()">Get Recs</button>-->
-<!--      <div *ngIf="recommendedAlbums">-->
-<!--        <app-album-list [albums]="recommendedAlbums"></app-album-list>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </mat-drawer-content>-->
-<!--</mat-drawer-container>-->
-
-
-<aside id="default-sidebar"
-       class="fixed top-0 left-0 z-40 w-80 h-screen transition-transform -translate-x-full sm:translate-x-0"
-       aria-label="Sidebar">
-  <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-    <!--    search input-->
-    <div class="mb-6">
-      <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Search for an Artist</label>
-      <input type="email" id="email"
-             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-             placeholder="Artist Name" required [(ngModel)]="searchText"/>
-      <button (click)="getArtist()" type="button" class=" w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">Search</button><br>
-      <button (click)="getRecommendations()" type="button" class="w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Get Recs</button>
+<div class="bg-gray-600 h-screen flex">
+  <!--search for artist sidebar-->
+  <aside id="default-sidebar"
+         class="w-80 h-screen bg-gray-50 dark:bg-gray-800"
+         aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto">
+      <!--    search input-->
+      <div class="m-4">
+        <label for="search" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Search for an Artist</label>
+        <input type="search" id="search"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-6"
+               placeholder="Artist Name" required [(ngModel)]="searchText"/>
+        <button (click)="getArtist()" type="button"
+                class="w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+          Search
+        </button>
+        <br>
+        <button (click)="getRecommendations()" type="button"
+                class="w-full text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+          Get Recs
+        </button>
+      </div>
+      <!--    searched artists-->
+      <div *ngIf="selectedArtists">
+        <app-artist-list [artists]="selectedArtists"></app-artist-list>
+      </div>
     </div>
-    <div *ngIf="selectedArtists">
-      <app-artist-list [artists]="selectedArtists"></app-artist-list>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-1 p-4 xl:mx-52 xl:my-28">
+    <div *ngIf="recommendedAlbums">
+      <app-album-list [albums]="recommendedAlbums"></app-album-list>
     </div>
   </div>
-</aside>
-
+</div>
