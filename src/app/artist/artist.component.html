@@ -11,20 +11,40 @@
 <!--  </div>-->
 <!--</div>-->
 
-<!--displays single artist with image, name, and genres.-->
-<div class="artist" *ngIf="contentArtist">
-  <!--  clicking on artist img or name will navigate to their spotify page-->
-  <div class="info">
-    <a href="{{contentArtist.externalUrl}}"><img [src]="contentArtist.images[0].url" width="200" height="200" alt=""></a>
-    <a href="{{contentArtist.externalUrl}}"><h2>{{ contentArtist.name }}</h2></a>
-    <div class="genres"></div>
-    <div *ngFor="let genre of contentArtist.genres.slice(0, 3); let isLast = last">
+<!--&lt;!&ndash;displays single artist with image, name, and genres.&ndash;&gt;-->
+<!--<div class="artist" *ngIf="contentArtist">-->
+<!--  &lt;!&ndash;  clicking on artist img or name will navigate to their spotify page&ndash;&gt;-->
+<!--  <div class="info">-->
+<!--    <a href="{{contentArtist.externalUrl}}"><img [src]="contentArtist.images[0].url" width="200" height="200" alt=""></a>-->
+<!--    <a href="{{contentArtist.externalUrl}}"><h2>{{ contentArtist.name }}</h2></a>-->
+<!--    <div class="genres"></div>-->
+<!--    <div *ngFor="let genre of contentArtist.genres.slice(0, 3); let isLast = last">-->
+<!--      <p> {{ genre }} <span *ngIf="!isLast"> &#9679; &nbsp;</span></p>-->
+<!--    </div>-->
+<!--    <button mat-button (click)="toggleFavorite(contentArtist)" class="fav-btn">-->
+<!--      <mat-icon fontIcon="favorite"></mat-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div *ngIf="contentArtist">
+  <a href="#"
+     class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+    <a href="{{contentArtist.externalUrl}}"><img [src]="contentArtist.images[0].url" width="200" height="200" alt=""
+                                                 class="w-14 h-14 rounded-full"></a>
+    <span class="ms-3">{{ contentArtist?.name }}</span>
+    <button mat-button (click)="toggleFavorite(contentArtist)" class="fav-btn">
+      <mat-icon fontIcon="favorite" class="text-white items-end"></mat-icon>
+    </button>
+  </a>
+  <div class="flex flex-nowrap">
+    <div *ngFor="let genre of contentArtist.genres.slice(0, 2); let isLast = last" class="ms-2 text-gray-400">
       <p> {{ genre }} <span *ngIf="!isLast"> &#9679; &nbsp;</span></p>
     </div>
-    <button mat-button (click)="toggleFavorite(contentArtist)" class="fav-btn">
-      <mat-icon fontIcon="favorite"></mat-icon>
-    </button>
   </div>
 </div>
+
+
+
 
 

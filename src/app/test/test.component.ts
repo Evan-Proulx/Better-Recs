@@ -12,6 +12,7 @@ import {ArtistService} from "../ArtistService/artist.service";
 import {Album} from "../models/album";
 import {Track} from "../models/track";
 import {AlbumListComponent} from "../album-list/album-list.component";
+import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-test',
@@ -27,7 +28,8 @@ import {AlbumListComponent} from "../album-list/album-list.component";
     MatDrawerContent,
     MatDrawer,
     MatDrawerContainer,
-    AlbumListComponent
+    AlbumListComponent,
+    CdkDropList,
   ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
@@ -35,6 +37,7 @@ import {AlbumListComponent} from "../album-list/album-list.component";
 export class TestComponent implements OnInit {
   searchText: string = "";
   selectedArtists: Artist[] = [];
+  favoriteSelectedArtists: Artist[] = [];
   favoriteArtists: string[] = [];
   recommendedTracks: Track[] = [];
   recommendedAlbums: Album[] = [];
@@ -103,6 +106,20 @@ export class TestComponent implements OnInit {
     })
 
     console.log(this.recommendedAlbums);
+  }
+
+
+  drop(event: CdkDragDrop<Artist[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
 }
