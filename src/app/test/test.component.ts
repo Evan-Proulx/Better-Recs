@@ -37,7 +37,6 @@ import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@ang
 export class TestComponent implements OnInit {
   searchText: string = "";
   selectedArtists: Artist[] = [];
-  favoriteSelectedArtists: Artist[] = [];
   favoriteArtists: string[] = [];
   recommendedTracks: Track[] = [];
   recommendedAlbums: Album[] = [];
@@ -64,6 +63,7 @@ export class TestComponent implements OnInit {
     this.artistService.artistList$.subscribe(list => {
       this.favoriteArtists = list;
     })
+
   }
 
   //gets the artist id from the artist
@@ -85,7 +85,6 @@ export class TestComponent implements OnInit {
     }
   }
 
-
   //gets recommended tracks based on artists in given array
   getRecommendations(): void {
     this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtists).subscribe({
@@ -104,22 +103,22 @@ export class TestComponent implements OnInit {
     this.recommendedTracks.forEach(track => {
       this.recommendedAlbums.push(track.album);
     })
-
     console.log(this.recommendedAlbums);
   }
 
-
-  drop(event: CdkDragDrop<Artist[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
-  }
+  //needs user auth
+  // getUserTopArtists(): void {
+  //   this.spotifyService.getUserTopArtists(this.accessToken).subscribe({
+  //     next: (data) => {
+  //       console.log(data.artists.items[0].id);
+  //       this.artistId = data.artists.items[0].id;
+  //       console.log(data)
+  //       this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
+  //     },
+  //     error: (error) => {
+  //       console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+  //     }
+  //   });
+  // }
 
 }

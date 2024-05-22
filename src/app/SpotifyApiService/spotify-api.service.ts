@@ -44,4 +44,25 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}`,
       {headers});
   }
+
+  getTopAlbums(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/browse/new-releases?offset=0&limit=20`,
+      {headers});
+  }
+
+  //needs user auth
+  // getUserTopArtists(token: string): Observable<any> {
+  //   const headers = new HttpHeaders({
+  //     'content-type': 'application/json',
+  //     'Authorization': `Bearer ` + token
+  //   });
+  //   return this.http.get<any>(
+  //     `https://api.spotify.com/v1/me/top/artists?locale=en-US`,
+  //     {headers});
+  // }
 }

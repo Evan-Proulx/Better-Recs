@@ -1,4 +1,4 @@
-<div class="bg-gray-600 h-screen flex">
+<div class="bg-gray-600 h-screen flex overflow-hidden">
   <!--search for artist sidebar-->
   <aside id="default-sidebar"
          class="w-80 h-screen bg-gray-50 dark:bg-gray-800"
@@ -28,8 +28,8 @@
   </aside>
 
   <!-- Main content -->
-  <div class="flex-1 p-4 xl:mx-52 xl:my-28">
-    <div *ngIf="recommendedAlbums">
+  <div class="flex-1 p-4 xl:mx-52 xl:my-28 overflow-y-auto custom-scrollbar">
+    <div *ngIf="recommendedAlbums" >
       <app-album-list [albums]="recommendedAlbums"></app-album-list>
     </div>
   </div>

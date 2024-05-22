@@ -20,7 +20,7 @@ export class Track {
     this.explicit = data.explicit;
     this.href = data.href;
     this.uri = data.uri;
-    this.previewUrl = data.preview_url;
+    this.previewUrl = data?.preview_url;
     this.externalUrl = data.external_urls?.spotify;
     this.album = new Album(data.album);
     this.artists = data.artists.map((artist: any) => new Artist(artist));
