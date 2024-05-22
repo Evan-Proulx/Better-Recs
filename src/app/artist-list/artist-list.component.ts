@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {ArtistComponent} from "../artist/artist.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Artist} from "../models/artist";
 
 @Component({
@@ -8,7 +8,8 @@ import {Artist} from "../models/artist";
   standalone: true,
   imports: [
     ArtistComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './artist-list.component.html',
   styleUrl: './artist-list.component.scss'
