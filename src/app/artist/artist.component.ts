@@ -4,6 +4,7 @@ import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {ArtistService} from "../ArtistService/artist.service";
 import {MatIcon} from "@angular/material/icon";
+import {CdkDrag} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-artist',
@@ -13,7 +14,8 @@ import {MatIcon} from "@angular/material/icon";
     NgForOf,
     NgIf,
     MatButton,
-    MatIcon
+    MatIcon,
+    CdkDrag
   ],
   templateUrl: './artist.component.html',
   styleUrl: './artist.component.scss'
@@ -21,12 +23,13 @@ import {MatIcon} from "@angular/material/icon";
 export class ArtistComponent {
   //single artist from the list
   @Input() contentArtist?: Artist;
+  @Input() isDetailed?: boolean;
   constructor(private artistService: ArtistService) { }
 
   toggleFavorite(artist: Artist) {
     artist.isFavorite = !artist.isFavorite;
     console.log(artist.isFavorite);
-    this.artistService.addToArtistList(artist.id);
+    this.artistService.addToArtistList(artist.id, artist);
   }
 
 }

@@ -1,6 +1,6 @@
 <!--displays list of artists-->
 <ul class="space-y-2 font-medium">
   <li>
-    <app-artist *ngFor="let artist of artists" [contentArtist]="artist"></app-artist>
+    <app-artist *ngFor="let artist of artists" [contentArtist]="artist" [isDetailed]="isDetailed"></app-artist>
   </li>
 </ul>

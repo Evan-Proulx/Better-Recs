@@ -12,7 +12,7 @@ import {ArtistService} from "../ArtistService/artist.service";
 import {Album} from "../models/album";
 import {Track} from "../models/track";
 import {AlbumListComponent} from "../album-list/album-list.component";
-import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-test',
@@ -30,16 +30,34 @@ import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@ang
     MatDrawerContainer,
     AlbumListComponent,
     CdkDropList,
+    CdkDrag,
   ],
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
 })
 export class TestComponent implements OnInit {
-  searchText: string = "";
-  selectedArtists: Artist[] = [];
+  defaultArtist: Artist = {
+    id: 'defaultId',
+    name: 'Default Artist',
+    genres: ['Default Genre'],
+    popularity: 0,
+    followers: 0,
+    externalUrl: 'https://default-url.com',
+    images: [{ url: 'default-image-url', height: 100, width: 100 }],
+    isFavorite: false
+  };
+  searchText: string = "b";
+  selectedArtists= [this.defaultArtist];
+  draggedArtists= [this.defaultArtist];
   favoriteArtists: string[] = [];
-  recommendedTracks: Track[] = [];
-  recommendedAlbums: Album[] = [];
+
+
+  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
+
+  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
+
+  dragWordList = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "imbe", "jackfruit", "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine"];
+  dropWordList= ["afdafasfda"];
 
 
   private accessToken: string = "";
@@ -85,40 +103,14 @@ export class TestComponent implements OnInit {
     }
   }
 
-  //gets recommended tracks based on artists in given array
-  getRecommendations(): void {
-    this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtists).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.recommendedTracks = data.tracks.map((item: any) => new Track(item));
-        this.getAlbums();
-      },
-      error: (error) => {
-        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
-      }
-    });
+  drop(event: CdkDragDrop<Artist[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
   }
-
-  getAlbums(): void {
-    this.recommendedTracks.forEach(track => {
-      this.recommendedAlbums.push(track.album);
-    })
-    console.log(this.recommendedAlbums);
-  }
-
-  //needs user auth
-  // getUserTopArtists(): void {
-  //   this.spotifyService.getUserTopArtists(this.accessToken).subscribe({
-  //     next: (data) => {
-  //       console.log(data.artists.items[0].id);
-  //       this.artistId = data.artists.items[0].id;
-  //       console.log(data)
-  //       this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
-  //     },
-  //     error: (error) => {
-  //       console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
-  //     }
-  //   });
-  // }
-
 }
