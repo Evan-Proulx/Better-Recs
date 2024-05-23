@@ -32,4 +32,8 @@ export class ArtistComponent {
     this.artistService.addToArtistList(artist.id, artist);
   }
 
+  onImageError(event: any) {
+    event.target.src = ''; // Set the src to an empty string to remove the default image
+  }
+
 }
