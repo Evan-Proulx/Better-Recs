@@ -1,0 +1,70 @@
+<div class="bg-gray-900 h-screen flex overflow-hidden">
+  <!--search for artist sidebar-->
+  <aside id="default-sidebar"
+         class="w-80 h-screen bg-gray-700 dark:bg-gray-800"
+         aria-label="Sidebar">
+    <div class="h-full px-3 py-4 overflow-y-auto">
+      <!--    search input-->
+      <div class="m-4">
+        <label for="search" class="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Search for an
+          Artist</label>
+        <input type="search" id="search"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-6"
+               placeholder="Artist Name" required [(ngModel)]="searchText"/>
+        <button (click)="getArtist()" type="button"
+                class="w-full text-green-700 hover:text-white border border-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">
+          Search
+        </button>
+        <br>
+      </div>
+      <!--    searched artists-->
+      <div
+        cdkDropList
+        #dragList="cdkDropList"
+        [cdkDropListData]="selectedArtists"
+        [cdkDropListConnectedTo]="[dropList]"
+        (cdkDropListDropped)="drop($event)">
+        <app-artist-list [artists]="selectedArtists" [isDetailed]="true"></app-artist-list>
+      </div>
+    </div>
+  </aside>
+
+
+  <!-- Main content -->
+  <!--  Box to drag artists into-->
+  <div class="flex-1 p-4 mx-24 my-28 overflow-y-auto custom-scrollbar">
+    <div class="text-gray-400 text-4xl">Drag Artists Here</div>
+    <div class="w-full h-80 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
+      <div cdkDropList
+           #dropList="cdkDropList"
+           [cdkDropListData]="draggedArtists"
+           [cdkDropListConnectedTo]="[dragList]"
+           (cdkDropListDropped)="drop($event)">
+        <app-artist-list [artists]="draggedArtists" [isDetailed]="false"></app-artist-list>
+      </div>
+    </div>
+
+    <div class="pt-5 flex justify-center">
+      <button (click)="getRecommendations()"
+        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+          <span
+            class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+          Get Recs
+          </span>
+      </button>
+      <button  (click)="resetDraggedArtists()" type="button"
+              class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+        RESET
+      </button>
+    </div>
+
+    <!--    Albums-->
+    <div class="mt-4">
+      <div *ngIf="recommendedAlbums">
+        <app-album-list [albums]="recommendedAlbums"></app-album-list>
+      </div>
+    </div>
+  </div>
+</div>
+
+
