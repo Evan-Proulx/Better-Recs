@@ -8,16 +8,13 @@
           <img [src]="contentArtist.images[0].url" width="200" height="200" alt=""
                class="w-14 h-14 rounded-full"></a>
         <span class="ms-3">{{ contentArtist.name }}</span>
-        <button mat-button (click)="toggleFavorite(contentArtist)" class="fav-btn">
-          <mat-icon fontIcon="favorite" class="text-white items-end"></mat-icon>
-        </button>
       </div>
       <!--    genres-->
-      <div class="flex flex-nowrap">
-        <div *ngFor="let genre of contentArtist.genres.slice(0, 2); let isLast = last" class="ms-2 text-gray-400">
-          <p> {{ genre }} <span *ngIf="!isLast"> &#9679; &nbsp;</span></p>
-        </div>
-      </div>
+<!--      <div class="flex flex-nowrap">-->
+<!--        <div *ngFor="let genre of contentArtist.genres.slice(0, 2); let isLast = last" class="ms-2 text-gray-400">-->
+<!--          <p> {{ genre }} <span *ngIf="!isLast"> &#9679; &nbsp;</span></p>-->
+<!--        </div>-->
+<!--      </div>-->
     </a>
   </div>
 </div>

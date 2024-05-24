@@ -9,11 +9,12 @@ import {Album} from "../models/album";
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
 import {ArtistService} from "../ArtistService/artist.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf],
+  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf, NavbarComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

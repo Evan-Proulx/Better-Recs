@@ -17,6 +17,7 @@
         </button>
         <br>
       </div>
+      <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
       <!--    searched artists-->
       <div
         cdkDropList
@@ -32,8 +33,23 @@
 
   <!-- Main content -->
   <!--  Box to drag artists into-->
-  <div class="flex-1 p-4 mx-24 my-28 overflow-y-auto custom-scrollbar">
-    <div class="text-gray-400 text-4xl">Drag Artists Here</div>
+  <div class="flex-1 p-4 mx-32 my-28 overflow-y-auto custom-scrollbar">
+    <!--    this gives a tooltip for when the ? button is hovered over-->
+    <span class="self-start text-4xl font-semibold whitespace-nowrap dark:text-gray-100">Drag Artists Here<button
+      data-popover-target="popover-description" data-popover-placement="bottom-end" type="button"><svg
+      class="w-4 h-4 ms-2 text-gray-400 hover:text-gray-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path></svg><span
+      class="sr-only">Show information</span></button></span>
+    <div data-popover id="popover-description" role="tooltip"
+         class="absolute z-10 invisible inline-block text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 w-72 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-400">
+      <div class="p-3 space-y-2">
+        <h3 class="font-semibold text-gray-900 dark:text-white">Drag artists your favorite artists into this box...</h3>
+        <p>Clicking the "Get Recs" button will send the artists you chose to Spotify's servers and return back
+          recommended albums and songs!</p>
+      </div>
+      <div data-popper-arrow></div>
+    </div>
+<!--    -->
     <div class="w-full h-80 p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 ">
       <div cdkDropList
            #dropList="cdkDropList"
@@ -46,25 +62,29 @@
 
     <div class="pt-5 flex justify-center">
       <button (click)="getRecommendations()"
-        class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
+              class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800">
           <span
             class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
           Get Recs
           </span>
       </button>
-      <button  (click)="resetDraggedArtists()" type="button"
+      <button (click)="resetDraggedArtists()" type="button"
               class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
         RESET
       </button>
     </div>
 
     <!--    Albums-->
-    <div class="mt-4">
-      <div *ngIf="recommendedAlbums">
-        <app-album-list [albums]="recommendedAlbums"></app-album-list>
+    <div class="mt-24">
+      <span class="self-start text-6xl font-semibold whitespace-nowrap dark:text-white">Your Recs</span>
+      <div class=" p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+        <div *ngIf="recommendedAlbums">
+          <app-album-list [albums]="recommendedAlbums"></app-album-list>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
 
