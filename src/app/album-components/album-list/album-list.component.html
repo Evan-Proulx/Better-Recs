@@ -1,0 +1,37 @@
+<!-- loop through array of albums and display in a grid -->
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-0 p-0 m-0">
+  <app-album cdkDrag *ngFor="let album of albums" [contentAlbum]="album"
+             (toggleModal)="handleToggleModal(album)" [isModalOpen]="isModalDisplayed"></app-album>
+</div>
+
+
+<!-- Main modal -->
+  <div *ngIf="modalAlbum">
+    <div *ngIf="isModalDisplayed" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+         class="fixed inset-0 flex items-center justify-center p-4 overflow-x-hidden overflow-y-auto h-full max-h-full">
+      <div class="relative mt-[-20%] w-full max-w-2xl max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 flex p-4">
+          <!-- album info -->
+          <img [src]="modalAlbum.images[0].url" alt="" class="w-60 h-60 rounded-2xl">
+          <div class="flex flex-col mx-2">
+            <span class="text-4xl font-semibold text-gray-900 dark:text-white">{{ modalAlbum.name }}</span>
+            <span class="text-xl text-gray-400 dark:text-white">{{ modalAlbum.artists[0].name }}</span>
+            <span class="text-gray-700 dark:text-white">{{ modalAlbum.releaseDate }}</span>
+            <span class="text-gray-400 dark:text-white">Total Tracks: {{ modalAlbum.totalTracks }}</span>
+            <a [href]="modalAlbum.externalUrl" target="_blank" class="text-blue-200 hover:underline">View on Spotify</a>
+          </div>
+<!--          button to close modal-->
+          <button type="button" (click)="handleToggleModal()"
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                  data-modal-hide="default-modal">
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+

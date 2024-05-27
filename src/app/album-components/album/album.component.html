@@ -1,0 +1,6 @@
+<div *ngIf="contentAlbum" class="flex flex-col w-40 p-0 m-0" (click)="toggleDetails()">
+  <img [src]="contentAlbum.images[0].url" alt="" class="w-40 h-40 rounded">
+  <span class="text-xl font-semibold text-white ellipsis">{{ contentAlbum.name }}</span>
+  <p class="text-s text-gray-300 ellipsis">{{ contentAlbum.artists[0].name }}
+</div>
+

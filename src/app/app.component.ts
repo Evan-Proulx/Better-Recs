@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {TestComponent} from "./test/test.component";
-import {ArtistComponent} from "./artist/artist.component";
+import {ArtistComponent} from "./artist-components/artist/artist.component";
 import {initFlowbite} from "flowbite";
 import {MainComponent} from "./main/main.component";
 

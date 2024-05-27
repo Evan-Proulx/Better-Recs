@@ -41,7 +41,7 @@ export class SpotifyApiService {
     });
 
     return this.http.get<any>(
-      `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}`,
+      `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}&limit=100`,
       {headers});
   }
 

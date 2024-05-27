@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
 import {FormsModule} from "@angular/forms";
-import {ArtistListComponent} from "../artist-list/artist-list.component";
+import {ArtistListComponent} from "../artist-components/artist-list/artist-list.component";
 import {Artist} from "../models/artist";
 import {NgForOf, NgIf} from "@angular/common";
 import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
-import {ArtistService} from "../ArtistService/artist.service";
+import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {Album} from "../models/album";
 import {Track} from "../models/track";
-import {AlbumListComponent} from "../album-list/album-list.component";
+import {AlbumListComponent} from "../album-components/album-list/album-list.component";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Component({

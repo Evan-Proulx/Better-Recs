@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {AlbumListComponent} from "../album-list/album-list.component";
-import {ArtistListComponent} from "../artist-list/artist-list.component";
+import {AlbumListComponent} from "../album-components/album-list/album-list.component";
+import {ArtistListComponent} from "../artist-components/artist-list/artist-list.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Artist} from "../models/artist";
 import {Track} from "../models/track";
 import {Album} from "../models/album";
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
-import {ArtistService} from "../ArtistService/artist.service";
+import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {NavbarComponent} from "../navbar/navbar.component";
 

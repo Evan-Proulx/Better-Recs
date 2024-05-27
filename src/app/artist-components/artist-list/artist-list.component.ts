@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {ArtistComponent} from "../artist/artist.component";
 import {NgForOf, NgIf} from "@angular/common";
-import {Artist} from "../models/artist";
+import {Artist} from "../../models/artist";
 
 @Component({
   selector: 'app-artist-list',
