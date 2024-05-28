@@ -65,11 +65,11 @@ export class SpotifyApiService {
       {headers});
   }
 
-  //needs user auth
-  // getUserTopArtists(token: string): Observable<any> {
+  // needs user auth
+  // getUserTopArtists(): Observable<any> {
   //   const headers = new HttpHeaders({
   //     'content-type': 'application/json',
-  //     'Authorization': `Bearer ` + token
+  //     'Authorization': `Bearer ` + 'AQD8AXVsCPx4FQar0KJADMO10mlWofXCtuc4V2lDtQkeP6q2aOfceWtsUi5LrHAqd6ERm0VCi59Z9oIibQpc8DFb4miZaWNgg9-23eFh2-JbrlUds3TlbmN3x4PEP8Jhcoge894qc1aLVSxUZdjIXIgCP6sDglSEsaU_VvmfKFa1H7XkL4szJgBu9SMFrUaxqoLNicsshB9gDr0F8jGB90kcIPAgAoZYuB_IOwBIsOT-MkHnpWzGd5-QsFf6zsqKPKr_f0_8SDypp-A9accUAgv66pAZzzLwPO0z6nh7pfEzoK_cplIJhQl_xbNNPwmgaab1Knf41NShb-Hqgf9JVoJ6CAQJ9Z3mYDNbzEAzBg'
   //   });
   //   return this.http.get<any>(
   //     `https://api.spotify.com/v1/me/top/artists?locale=en-US`,

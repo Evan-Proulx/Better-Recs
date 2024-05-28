@@ -13,6 +13,7 @@ import {Album} from "../models/album";
 import {Track} from "../models/track";
 import {AlbumListComponent} from "../album-components/album-list/album-list.component";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {UserAuthService} from "../user-auth.service";
 
 @Component({
   selector: 'app-test',
@@ -64,34 +65,35 @@ export class TestComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
   constructor(private spotifyService: SpotifyApiService,
-              private artistService: ArtistService) { }
+              private artistService: ArtistService, private userauth: UserAuthService) { }
 
   ngOnInit(): void {
-    //Gets the access token when the app first loads
-    this.spotifyService.getToken().subscribe({
-      next: (data) => {
-        this.accessToken = data.access_token;
-        console.log("TOKEN:", this.accessToken);
-      },
-      error: (error) => {
-        console.error("ERROR FETCHING TOKEN: ", error);
-      }
-    });
-
-    this.artistService.artistList$.subscribe(list => {
-      this.favoriteArtists = list;
-    })
+    if (window.location.search.includes('code=')) {
+      this.userauth.handleAuthCallback()
+        .then(() => {
+          console.log('Authentication callback handled successfully');
+        })
+        .catch((error) => {
+          console.error('Error handling authentication callback', error);
+        });
+    }
   }
 
-  getAlbum(){
-    this.spotifyService.getAlbum("3ZOz5WED7SNRykujcrvXUZ", this.accessToken).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (error) => {
-        console.error("ERROR FETCHING TOKEN: ", error);
-      }
-    });
+  authenticate(){
+    this.userauth.authenticate();
   }
+
+
+
+  // getAlbum(){
+  //   this.spotifyService.getAlbum("3ZOz5WED7SNRykujcrvXUZ", this.accessToken).subscribe({
+  //     next: (data) => {
+  //       console.log(data);
+  //     },
+  //     error: (error) => {
+  //       console.error("ERROR FETCHING TOKEN: ", error);
+  //     }
+  //   });
+  // }
 
 }
