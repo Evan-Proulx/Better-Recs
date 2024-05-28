@@ -30,7 +30,9 @@ export class MainComponent implements OnInit {
     images: [{url: '', height: 100, width: 100}],
     isFavorite: false
   };
-  private accessToken: string = "";
+
+  //This is shared with the album list(might be bad)
+  accessToken: string = "";
   //text in the artist search bar
   searchText: string = "";
   //artists retrieved from the search
@@ -66,8 +68,6 @@ export class MainComponent implements OnInit {
         console.error("ERROR FETCHING TOKEN: ", error);
       }
     });
-
-
   }
 
   //gets the artist id from the artist
@@ -169,7 +169,6 @@ export class MainComponent implements OnInit {
       this.defaultArtistRemoved = false;
     }
   }
-
 
   //resets all recommendation values
   //this ensures duplicate values and invalid ids are not used in the call

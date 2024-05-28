@@ -79,7 +79,7 @@
       <span class="self-start text-6xl font-semibold whitespace-nowrap dark:text-white">Your Recs</span>
       <div class=" p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
         <div *ngIf="recommendedAlbums">
-          <app-album-list [albums]="recommendedAlbums"></app-album-list>
+          <app-album-list [albums]="recommendedAlbums" [token]="this.accessToken"></app-album-list>
         </div>
       </div>
     </div>

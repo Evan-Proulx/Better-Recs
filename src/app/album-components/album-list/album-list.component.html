@@ -16,12 +16,12 @@
           <div class="flex flex-col mx-2">
             <span class="text-4xl font-semibold text-gray-900 dark:text-white">{{ modalAlbum.name }}</span>
             <span class="text-xl text-gray-400 dark:text-white">{{ modalAlbum.artists[0].name }}</span>
-            <span class="text-gray-700 dark:text-white">{{ modalAlbum.releaseDate }}</span>
-            <span class="text-gray-400 dark:text-white">Total Tracks: {{ modalAlbum.totalTracks }}</span>
-            <a [href]="modalAlbum.externalUrl" target="_blank" class="text-blue-200 hover:underline">View on Spotify</a>
+            <span class="text-gray-700 dark:text-white">{{ modalAlbum.release_date }}</span>
+            <span class="text-gray-400 dark:text-white">Total Tracks: {{ modalAlbum.total_tracks }}</span>
+            <a [href]="modalAlbum.external_url" target="_blank" class="text-blue-200 hover:underline">View on Spotify</a>
           </div>
 <!--          button to close modal-->
-          <button type="button" (click)="handleToggleModal()"
+          <button type="button" (click)="closeModal()"
                   class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-hide="default-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">

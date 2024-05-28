@@ -55,6 +55,16 @@ export class SpotifyApiService {
       {headers});
   }
 
+  getAlbum(albumId: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/albums/${albumId}`,
+      {headers});
+  }
+
   //needs user auth
   // getUserTopArtists(token: string): Observable<any> {
   //   const headers = new HttpHeaders({

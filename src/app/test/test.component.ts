@@ -81,36 +81,17 @@ export class TestComponent implements OnInit {
     this.artistService.artistList$.subscribe(list => {
       this.favoriteArtists = list;
     })
-
   }
 
-  //gets the artist id from the artist
-  getArtist(): void {
-    if (this.searchText){
-      this.spotifyService.getArtist(this.searchText, this.accessToken).subscribe({
-        next: (data) => {
-          console.log(data.artists.items[0].id);
-          this.artistId = data.artists.items[0].id;
-          console.log(data)
-          this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
-        },
-        error: (error) => {
-          console.error("ERROR FETCHING ARTIST: ", error);
-        }
-      });
-    }else{
-      console.log("Please enter an artist name");
-    }
+  getAlbum(){
+    this.spotifyService.getAlbum("3ZOz5WED7SNRykujcrvXUZ", this.accessToken).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
   }
 
-  drop(event: CdkDragDrop<Artist[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-  }
 }
