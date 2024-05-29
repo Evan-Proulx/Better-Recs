@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private router: Router) {}
+
+  //sends user to auth page
+  toAuth(){
+    this.router.navigate(['auth']); // Navigate to the main route
+  }
 }

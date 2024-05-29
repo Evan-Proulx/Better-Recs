@@ -13,7 +13,7 @@ import {Album} from "../models/album";
 import {Track} from "../models/track";
 import {AlbumListComponent} from "../album-components/album-list/album-list.component";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {UserAuthService} from "../user-auth.service";
+import {UserAuthService} from "../authentication/user-auth.service";
 
 @Component({
   selector: 'app-test',
