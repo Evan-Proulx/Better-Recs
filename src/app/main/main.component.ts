@@ -63,11 +63,14 @@ export class MainComponent implements OnInit {
         this.accessToken = data.access_token;
         console.log("TOKEN:", this.accessToken);
         this.getTopAlbums();
+        this.getUserTopArtists();
       },
       error: (error) => {
         console.error("ERROR FETCHING TOKEN: ", error);
       }
     });
+    //removes auth code from the url
+    window.history.replaceState({}, document.title, window.location.pathname);
   }
 
   //gets the artist id from the artist
@@ -180,20 +183,16 @@ export class MainComponent implements OnInit {
     this.defaultArtistRemoved = false;
   }
 
-  //needs user auth
-  // getUserTopArtists(): void {
-  //   this.spotifyService.getUserTopArtists(this.accessToken).subscribe({
-  //     next: (data) => {
-  //       console.log(data.artists.items[0].id);
-  //       this.artistId = data.artists.items[0].id;
-  //       console.log(data)
-  //       this.selectedArtists = data.artists.items.map((item: any) => new Artist(item));
-  //     },
-  //     error: (error) => {
-  //       console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
-  //     }
-  //   });
-  // }
-
+  getUserTopArtists(): void {
+    this.spotifyService.getUserTopArtists().subscribe({
+      next: (data) => {
+        console.log(data);
+        this.selectedArtists = data.items.map((item: any) => new Artist(item));
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+      }
+    });
+  }
 }
 

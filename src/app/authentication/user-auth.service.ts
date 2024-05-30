@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../enviroment";
+import {mergeMap, Observable, retryWhen} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class UserAuthService {
       "user-library-read",
       "user-library-modify",
       "user-read-playback-state",
-      "user-modify-playback-state"
+      "user-modify-playback-state",
+      "user-top-read"
     ];
     const url = `https://accounts.spotify.com/authorize?client_id=${encodeURIComponent(this.clientId)}&response_type=code&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${encodeURIComponent(scopes.join(' '))}`;
     window.location.href = url;
@@ -58,6 +60,7 @@ export class UserAuthService {
       const tokenData = await this.exchangeCodeForToken(code);
       if (tokenData && tokenData.access_token) {
         console.log('Access Token Data:', tokenData);
+        this.clearTokens();
         //store tokens
         localStorage.setItem('spotify_access_token', tokenData.access_token);
         localStorage.setItem('spotify_refresh_token', tokenData.refresh_token);
@@ -71,7 +74,41 @@ export class UserAuthService {
     }
   }
 
+
+  //get a new access token when the access token expires
+  async refreshAccessToken(): Promise<void> {
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) {
+      throw new Error('No refresh token available');
+    }
+
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(`${this.clientId}:${this.clientSecret}`),
+      },
+      body: new URLSearchParams({
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (data.access_token) {
+      localStorage.setItem('spotify_access_token', data.access_token);
+      console.log('Access Token refreshed:', data.access_token);
+    } else {
+      console.error('Failed to refresh access token:', data);
+    }
+  }
+
   getAccessToken(): string | null {
+    console.log('Access Token:', localStorage.getItem('spotify_access_token'));
     return localStorage.getItem('spotify_access_token');
   }
 

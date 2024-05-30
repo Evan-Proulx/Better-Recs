@@ -37,29 +37,6 @@ import {UserAuthService} from "../authentication/user-auth.service";
   styleUrl: './test.component.scss'
 })
 export class TestComponent implements OnInit {
-  defaultArtist: Artist = {
-    id: 'defaultId',
-    name: 'Default Artist',
-    genres: ['Default Genre'],
-    popularity: 0,
-    followers: 0,
-    externalUrl: 'https://default-url.com',
-    images: [{ url: 'default-image-url', height: 100, width: 100 }],
-    isFavorite: false
-  };
-  searchText: string = "b";
-  selectedArtists= [this.defaultArtist];
-  draggedArtists= [this.defaultArtist];
-  favoriteArtists: string[] = [];
-
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-
-  dragWordList = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "imbe", "jackfruit", "kiwi", "lemon", "mango", "nectarine", "orange", "papaya", "quince", "raspberry", "strawberry", "tangerine"];
-  dropWordList= ["afdafasfda"];
-
 
   private accessToken: string = "";
   private artistId: string = "";
@@ -68,19 +45,27 @@ export class TestComponent implements OnInit {
               private artistService: ArtistService, private userauth: UserAuthService) { }
 
   ngOnInit(): void {
-    if (window.location.search.includes('code=')) {
-      this.userauth.handleAuthCallback()
-        .then(() => {
-          console.log('Authentication callback handled successfully');
-        })
-        .catch((error) => {
-          console.error('Error handling authentication callback', error);
-        });
-    }
+    this.spotifyService.getToken().subscribe({
+      next: (data) => {
+        this.accessToken = data.access_token;
+        console.log("TOKEN:", this.accessToken);
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
   }
 
-  authenticate(){
-    this.userauth.authenticate();
+
+  getUserTopArtists(): void {
+    this.spotifyService.getUserTopArtists().subscribe({
+      next: (data) => {
+        console.log(data)
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+      }
+    });
   }
 
 
