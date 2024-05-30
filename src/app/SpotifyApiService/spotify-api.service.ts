@@ -81,7 +81,7 @@ export class SpotifyApiService {
     );
   }
 
-  private handleError(error: any){
+  handleError(error: any){
     if (error.status === 401){
       this.userauth.refreshAccessToken();
     }
@@ -97,6 +97,17 @@ export class SpotifyApiService {
     });
     return this.http.get<any>(
       `https://api.spotify.com/v1/me/top/artists?limit=50`,
+      {headers});
+  }
+
+  saveAlbum(id: string): Observable<any> {
+    const accessToken = this.userauth.getAccessToken();
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + accessToken
+    });
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/me/albums?ids=${id}`,
       {headers});
   }
 }

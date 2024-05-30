@@ -19,6 +19,11 @@
             <span class="text-gray-700 dark:text-white">{{ modalAlbum.release_date }}</span>
             <span class="text-gray-400 dark:text-white">Total Tracks: {{ modalAlbum.total_tracks }}</span>
             <a [href]="modalAlbum.external_url" target="_blank" class="text-blue-200 hover:underline">View on Spotify</a>
+<!--            save album button-->
+            <button type="button" (click)="saveAlbum(modalAlbum.id)"
+                    class="text-white bg-green-500 hover:accent-green-500 hover:text-green-400 rounded-2xl text-sm w-8 h-8 dark:hover:bg-green-400 dark:hover:text-white flex items-center justify-center">
+            <mat-icon>{{ isSaved ? 'check' : 'add' }}</mat-icon>
+            </button>
           </div>
 <!--          button to close modal-->
           <button type="button" (click)="closeModal()"

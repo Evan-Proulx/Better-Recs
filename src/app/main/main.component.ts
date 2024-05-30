@@ -191,6 +191,7 @@ export class MainComponent implements OnInit {
       },
       error: (error) => {
         console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+        this.spotifyService.handleError(error);
       }
     });
   }

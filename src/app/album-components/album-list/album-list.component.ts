@@ -1,10 +1,11 @@
 import {Component, Input} from '@angular/core';
 import {Album} from "../../models/album";
 import {ArtistComponent} from "../../artist-components/artist/artist.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {AlbumComponent} from "../album/album.component";
 import {CdkDrag} from "@angular/cdk/drag-drop";
 import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-album-list',
@@ -14,7 +15,9 @@ import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
     NgForOf,
     AlbumComponent,
     CdkDrag,
-    NgIf
+    NgIf,
+    MatIcon,
+    NgClass
   ],
   templateUrl: './album-list.component.html',
   styleUrl: './album-list.component.scss'
@@ -24,6 +27,7 @@ export class AlbumListComponent {
   @Input() token: string = "";
   isModalDisplayed: boolean = false;
   modalAlbum: Album | undefined;
+  isSaved: boolean = false;
 
   constructor(private spotifyService: SpotifyApiService) {}
 
@@ -53,5 +57,16 @@ export class AlbumListComponent {
     });
   }
 
+  saveAlbum(id: string){
+    this.spotifyService.saveAlbum(id).subscribe({
+      next: (data) => {
+        console.log('album saved', data);
+        this.isSaved = true;
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
+  }
 
 }
