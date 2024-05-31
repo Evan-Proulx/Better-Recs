@@ -38,9 +38,10 @@ import {UserAuthService} from "../authentication/user-auth.service";
 })
 export class TestComponent implements OnInit {
 
-  private accessToken: string = "";
+  accessToken: string = "";
   private artistId: string = "";
   private artists: string[] = [];
+  recommendedAlbums: Album[] = [];
   constructor(private spotifyService: SpotifyApiService,
               private artistService: ArtistService, private userauth: UserAuthService) { }
 
@@ -49,9 +50,22 @@ export class TestComponent implements OnInit {
       next: (data) => {
         this.accessToken = data.access_token;
         console.log("TOKEN:", this.accessToken);
+        this.getTopAlbums();
       },
       error: (error) => {
         console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
+  }
+
+  getTopAlbums(): void {
+    this.spotifyService.getTopAlbums(this.accessToken).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.recommendedAlbums = data.albums.items.map((item: any) => new Album(item));
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
       }
     });
   }

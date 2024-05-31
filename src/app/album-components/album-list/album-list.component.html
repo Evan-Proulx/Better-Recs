@@ -1,9 +1,8 @@
 <!-- loop through array of albums and display in a grid -->
-<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-0 p-0 m-0">
+<div class="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 p-0 m-0">
   <app-album cdkDrag *ngFor="let album of albums" [contentAlbum]="album"
              (toggleModal)="handleToggleModal(album)" [isModalOpen]="isModalDisplayed"></app-album>
 </div>
-
 
 <!-- Main modal -->
   <div *ngIf="modalAlbum">

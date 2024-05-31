@@ -1,1 +1,3 @@
-<button (click)="getUserTopArtists()">Login with spotify</button>
+<div *ngIf="recommendedAlbums">
+  <app-album-list [albums]="recommendedAlbums" [token]="this.accessToken"></app-album-list>
+</div>

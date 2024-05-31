@@ -57,6 +57,8 @@ export class AlbumListComponent {
     });
   }
 
+
+  //saves the selected album to the user's library
   saveAlbum(id: string){
     this.spotifyService.saveAlbum(id).subscribe({
       next: (data) => {

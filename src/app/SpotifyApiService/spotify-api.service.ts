@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {catchError, Observable, throwError} from "rxjs";
 import {environment} from "../../enviroment";
@@ -11,7 +11,8 @@ export class SpotifyApiService {
   private tokenUrl = 'https://accounts.spotify.com/api/token';
   private accessToken: string = "";
 
-  constructor(private http: HttpClient, private userauth: UserAuthService) { }
+  constructor(private http: HttpClient, private userauth: UserAuthService) {
+  }
 
   getToken(): Observable<any> {
     const headers = new HttpHeaders({
@@ -81,14 +82,12 @@ export class SpotifyApiService {
     );
   }
 
-  handleError(error: any){
-    if (error.status === 401){
+  handleError(error: any) {
+    if (error.status === 401) {
       this.userauth.refreshAccessToken();
     }
   }
 
-
-  // needs user auth
   getUserTopArtists(): Observable<any> {
     const accessToken = this.userauth.getAccessToken();
     const headers = new HttpHeaders({
@@ -100,14 +99,15 @@ export class SpotifyApiService {
       {headers});
   }
 
+
+  //saves selected album to the users library
   saveAlbum(id: string): Observable<any> {
     const accessToken = this.userauth.getAccessToken();
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Authorization': `Bearer ` + accessToken
     });
-    return this.http.get<any>(
-      `https://api.spotify.com/v1/me/albums?ids=${id}`,
-      {headers});
+
+    return this.http.put<any>("https://api.spotify.com/v1/me/albums?", {ids: [id]}, {headers});
   }
 }
