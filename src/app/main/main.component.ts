@@ -78,7 +78,7 @@ export class MainComponent implements OnInit {
   //gets the artist id from the artist
   getArtist(): void {
     if (this.searchText) {
-      this.spotifyService.getArtist(this.searchText, this.accessToken).subscribe({
+      this.spotifyService.getArtists(this.searchText, this.accessToken).subscribe({
         next: (data) => {
           console.log(data.artists.items[0].id);
           this.artistId = data.artists.items[0].id;

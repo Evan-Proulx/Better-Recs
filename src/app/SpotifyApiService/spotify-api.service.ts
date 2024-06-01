@@ -27,7 +27,7 @@ export class SpotifyApiService {
     return this.http.post<any>(this.tokenUrl, body.toString(), {headers});
   }
 
-  getArtist(artist: string, token: string): Observable<any> {
+  getArtists(artist: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Authorization': `Bearer ` + token
@@ -66,6 +66,17 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/albums/${albumId}`,
       {headers});
   }
+  getArtist(artistId: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/artists/${artistId}`,
+      {headers});
+  }
+
+
 
   handleError(error: any) {
     if (error.status === 401) {
