@@ -10,11 +10,12 @@ import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
 import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {NavbarComponent} from "../navbar/navbar.component";
+import {RecBtnsComponent} from "../rec-btns/rec-btns.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf, NavbarComponent],
+  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf, NavbarComponent, RecBtnsComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit {
   //The tracks recommended
   recommendedTracks: Track[] = [];
   recommendedAlbums: Album[] = [];
+  selectedPopularity: number = 100;
   //Trending albums
   topAlbums: Album[] = [];
 
@@ -95,7 +97,7 @@ export class MainComponent implements OnInit {
   //gets recommended tracks based on artists in given array
   getRecommendations(): void {
     this.getArtistIds();
-    this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtistsIds).subscribe({
+    this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtistsIds, this.selectedPopularity).subscribe({
       next: (data) => {
         console.log(data);
         //remove items from recommendations
@@ -183,6 +185,10 @@ export class MainComponent implements OnInit {
     this.defaultArtistRemoved = false;
   }
 
+  //sets the popularity of given recommendations
+  handlePopularity(popularity: number){
+    this.selectedPopularity = popularity;
+  }
   getUserTopArtists(): void {
     this.spotifyService.getUserTopArtists().subscribe({
       next: (data) => {

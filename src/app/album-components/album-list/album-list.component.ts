@@ -31,6 +31,10 @@ export class AlbumListComponent {
 
   constructor(private spotifyService: SpotifyApiService) {}
 
+  ////////////////////////////////////////////////////////////////
+  //MODAL METHODS
+  ////////////////////////////////////////////////////////////////
+
   //closes the modal
   closeModal() {
     this.isModalDisplayed = !this.isModalDisplayed;
@@ -56,7 +60,6 @@ export class AlbumListComponent {
       }
     });
   }
-
 
   //saves the selected album to the user's library
   saveAlbum(id: string){

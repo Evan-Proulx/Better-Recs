@@ -36,14 +36,14 @@ export class SpotifyApiService {
     return this.http.get<any>(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {headers});
   }
 
-  getRecommendations(token: string, artists: string[]): Observable<any> {
+  getRecommendations(token: string, artists: string[], popularity: number): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Authorization': `Bearer ` + token
     });
 
     return this.http.get<any>(
-      `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}&limit=100&target_popularity=100`,
+      `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}&limit=100&target_popularity=${popularity}`,
       {headers});
   }
 
@@ -65,21 +65,6 @@ export class SpotifyApiService {
     return this.http.get<any>(
       `https://api.spotify.com/v1/albums/${albumId}`,
       {headers});
-  }
-
-
-  tryArtists(): Observable<any> {
-    return this.getUserTopArtists().pipe(
-      catchError(error => {
-        if (error.status === 401) { // Unauthorized, likely due to expired token
-          return this.userauth.refreshAccessToken().then(() => {
-            return this.getUserTopArtists();
-          });
-        } else {
-          return throwError(error);
-        }
-      })
-    );
   }
 
   handleError(error: any) {
