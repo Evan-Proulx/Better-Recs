@@ -42,8 +42,11 @@ export class TestComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
   recommendedAlbums: Album[] = [];
+  userTopTracks: string[] = [];
+
   constructor(private spotifyService: SpotifyApiService,
-              private artistService: ArtistService, private userauth: UserAuthService) { }
+              private artistService: ArtistService, private userauth: UserAuthService) {
+  }
 
   ngOnInit(): void {
     this.spotifyService.getToken().subscribe({
@@ -81,6 +84,21 @@ export class TestComponent implements OnInit {
       }
     });
   }
+
+  getTopTracks() {
+    this.spotifyService.getUserTopTracks().subscribe({
+      next: (data) => {
+        console.log("Tracks", data);
+        const trackIds: string[] = data.items.map((track: any) => track.id);
+        console.log(trackIds);
+        this.userTopTracks = trackIds;
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+      }
+    })
+  }
+
 
 
 

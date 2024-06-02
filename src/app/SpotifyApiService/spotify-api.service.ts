@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, Observable, switchMap, throwError} from "rxjs";
 import {environment} from "../../enviroment";
 import {UserAuthService} from "../authentication/user-auth.service";
 
@@ -36,7 +36,9 @@ export class SpotifyApiService {
     return this.http.get<any>(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {headers});
   }
 
-  getRecommendations(token: string, artists: string[], popularity: number): Observable<any> {
+
+  //Gets album recommendations for given artists
+  getArtistRecommendations(token: string, artists: string[], popularity: number): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Authorization': `Bearer ` + token
@@ -46,7 +48,17 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/recommendations?market=US&seed_artists=${artists}&limit=100&target_popularity=${popularity}`,
       {headers});
   }
+  //Gets album recommendations for given tracks
+  getTrackRecommendations(token: string, tracks: string[], popularity: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
 
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/recommendations?market=US&seed_tracks=${tracks}&limit=100&target_popularity=${popularity}`,
+      {headers});
+  }
   getTopAlbums(token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -75,9 +87,6 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/artists/${artistId}`,
       {headers});
   }
-
-
-
   handleError(error: any) {
     if (error.status === 401) {
       this.userauth.refreshAccessToken();
@@ -94,8 +103,16 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/me/top/artists?limit=50`,
       {headers});
   }
-
-
+  getUserTopTracks(): Observable<any> {
+    const accessToken = this.userauth.getAccessToken();
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + accessToken
+    });
+    return this.http.get<any>(
+      `https://api.spotify.com/v1/me/top/tracks?limit=5`,
+      {headers});
+  }
   //saves selected album to the users library
   saveAlbum(id: string): Observable<any> {
     const accessToken = this.userauth.getAccessToken();

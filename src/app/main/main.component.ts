@@ -43,6 +43,7 @@ export class MainComponent implements OnInit {
   defaultArtistRemoved: boolean = false;
   //The ids of the dragged artists
   favoriteArtistsIds: string[] = [];
+  favoriteTrackIds: string[] = [];
   //The tracks recommended
   recommendedTracks: Track[] = [];
   recommendedAlbums: Album[] = [];
@@ -97,7 +98,7 @@ export class MainComponent implements OnInit {
   //gets recommended tracks based on artists in given array
   getRecommendations(): void {
     this.getArtistIds();
-    this.spotifyService.getRecommendations(this.accessToken, this.favoriteArtistsIds, this.selectedPopularity).subscribe({
+    this.spotifyService.getArtistRecommendations(this.accessToken, this.favoriteArtistsIds, this.selectedPopularity).subscribe({
       next: (data) => {
         console.log(data);
         //remove items from recommendations
@@ -111,6 +112,7 @@ export class MainComponent implements OnInit {
       }
     });
   }
+
 
   //THis gets the trending tracks from spotify
   //These are shown when the app first loads
@@ -201,5 +203,35 @@ export class MainComponent implements OnInit {
       }
     });
   }
+
+  //gets the users top tracks and returns recommendations based on them
+  getUserTopTracks() {
+    this.spotifyService.getUserTopTracks().subscribe({
+      next: (data) => {
+        console.log("Tracks", data);
+        const trackIds: string[] = data.items.map((track: any) => track.id);
+        console.log(trackIds);
+        this.favoriteTrackIds = trackIds;
+        this.spotifyService.getTrackRecommendations(this.accessToken, this.favoriteTrackIds, this.selectedPopularity).subscribe({
+          next: (data) => {
+            console.log(data);
+            //remove items from recommendations
+            this.resetDraggedArtists();
+            //add retrieved data
+            this.recommendedTracks = data.tracks.map((item: any) => new Track(item));
+            this.getAlbums();
+          },
+          error: (error) => {
+            console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+          }
+        })
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
+      }
+    })
+  }
+
+
 }
 
