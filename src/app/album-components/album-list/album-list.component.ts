@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {booleanAttribute, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Album} from "../../models/album";
 import {ArtistComponent} from "../../artist-components/artist/artist.component";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
@@ -7,6 +7,7 @@ import {CdkDrag} from "@angular/cdk/drag-drop";
 import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
 import {MatIcon} from "@angular/material/icon";
 import { Artist } from '../../models/artist';
+import {ModalData} from "../../models/ModalData";
 
 @Component({
   selector: 'app-album-list',
@@ -26,6 +27,7 @@ import { Artist } from '../../models/artist';
 export class AlbumListComponent {
   @Input() albums: Album[] = [];
   @Input() token: string = "";
+  @Output() modalData = new EventEmitter<ModalData>();
   isModalDisplayed: boolean = false;
   modalAlbum: Album | undefined;
   isSaved: boolean = false;
@@ -39,9 +41,8 @@ export class AlbumListComponent {
   ////////////////////////////////////////////////////////////////
 
   //closes the modal
-  closeModal() {
-    this.isModalDisplayed = !this.isModalDisplayed;
-  }
+
+
 
   //toggles the modal and gets album from the api
   handleToggleModal(album: Album) {
@@ -52,9 +53,15 @@ export class AlbumListComponent {
       this.formatDate(album.release_date);
       //get artist info
       this.getArtist(this.modalAlbum.artists[0].id);
+      this.isModalDisplayed = !this.isModalDisplayed;
+
+      const modalData = new ModalData(this.modalAlbum, this.formattedDate, this.genres, this.isModalDisplayed);
+      this.modalData.emit(modalData);
+      console.log("Test", modalData)
     }
-    this.isModalDisplayed = !this.isModalDisplayed;
   }
+
+
 
  //gets detailed information about the artist
   getArtist(id: string){

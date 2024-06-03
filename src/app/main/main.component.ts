@@ -11,11 +11,15 @@ import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {RecBtnsComponent} from "../rec-btns/rec-btns.component";
+import {MatIcon} from "@angular/material/icon";
+import {ModalData} from "../models/ModalData";
+import {Modal} from "flowbite";
+import {AlbumModalComponent} from "../album-modal/album-modal.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf, NavbarComponent, RecBtnsComponent],
+  imports: [AlbumListComponent, ArtistListComponent, NgIf, ReactiveFormsModule, FormsModule, CdkDrag, CdkDropList, NgForOf, NavbarComponent, RecBtnsComponent, MatIcon, AlbumModalComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -50,6 +54,9 @@ export class MainComponent implements OnInit {
   selectedPopularity: number = 100;
   //Trending albums
   topAlbums: Album[] = [];
+  //Determines the styles applied when modal is opened
+  modalOpen: boolean = false;
+  modalData: ModalData | undefined;
 
   //these are being used
   private artistId: string = "";
@@ -232,6 +239,13 @@ export class MainComponent implements OnInit {
     })
   }
 
+  handleModalDisplayed(modalData: ModalData){
+    this.modalData = modalData;
+    this.modalOpen = true;
+  }
 
+  closeModal(){
+    this.modalOpen = false;
+  }
 }
 
