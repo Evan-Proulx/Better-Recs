@@ -51,24 +51,22 @@ export class AlbumListComponent {
       this.modalAlbum = album;
       //format teh albums release date
       this.formatDate(album.release_date);
-      //get artist info
-      this.getArtist(this.modalAlbum.artists[0].id);
       this.isModalDisplayed = !this.isModalDisplayed;
-
-      const modalData = new ModalData(this.modalAlbum, this.formattedDate, this.genres, this.isModalDisplayed);
-      this.modalData.emit(modalData);
-      console.log("Test", modalData)
+      //get artist info
+      this.getGenres(this.modalAlbum.artists[0].id);
     }
   }
 
-
-
  //gets detailed information about the artist
-  getArtist(id: string){
+  getGenres(id: string){
     this.spotifyService.getArtist(id, this.token).subscribe({
       next: (data) => {
         console.log(data.genres);
         this.genres = data.genres;
+        //this ensures the genres are set before emitting the data
+        const modalData = new ModalData(this.modalAlbum, this.formattedDate, this.genres, this.isModalDisplayed);
+        this.modalData.emit(modalData);
+        console.log("Test", modalData)
       },
       error: (error) => {
         console.error("ERROR FETCHING TOKEN: ", error);
@@ -79,19 +77,6 @@ export class AlbumListComponent {
   //extracts year from date(2024-02-06 -> 2024)
   formatDate(date: string){
     this.formattedDate = date.substring(0, 4);
-  }
-
-  //saves the selected album to the user's library
-  saveAlbum(id: string){
-    this.spotifyService.saveAlbum(id).subscribe({
-      next: (data) => {
-        console.log('album saved', data);
-        this.isSaved = true;
-      },
-      error: (error) => {
-        console.error("ERROR FETCHING TOKEN: ", error);
-      }
-    });
   }
 
 }

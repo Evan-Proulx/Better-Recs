@@ -17,7 +17,7 @@
   <div *ngIf="contentArtist" class="items-center p-2">
 <!--    makes sure the default artist image doesnt show-->
     <div *ngIf="contentArtist.images[0].url != ''">
-      <img [src]="contentArtist.images[0].url" width="200" height="200" alt="" class="w-20 h-20 rounded-full">
+      <img [src]="contentArtist.images[0].url" width="200" height="200" alt="" class="xl:w-24 w-16 rounded-full">
     </div>
   </div>
 </ng-template>

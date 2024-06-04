@@ -15,6 +15,5 @@ export class ArtistService {
     const currentList = this.artistListSubject.getValue();
     const updatedList = [...currentList, artistID];
     this.artistListSubject.next(updatedList);
-
   }
 }

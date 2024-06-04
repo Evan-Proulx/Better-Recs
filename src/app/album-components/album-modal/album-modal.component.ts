@@ -1,19 +1,20 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
-import {NgForOf, NgIf} from "@angular/common";
-import {Album} from "../models/album";
-import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
-import {ModalData} from "../models/ModalData";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
+import {Album} from "../../models/album";
+import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
+import {ModalData} from "../../models/ModalData";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-album-modal',
   standalone: true,
-    imports: [
-        MatIcon,
-        NgForOf,
-        NgIf
-    ],
+  imports: [
+    MatIcon,
+    NgForOf,
+    NgIf,
+    NgStyle
+  ],
   templateUrl: './album-modal.component.html',
   styleUrl: './album-modal.component.scss'
 })

@@ -14,7 +14,7 @@ import {RecBtnsComponent} from "../rec-btns/rec-btns.component";
 import {MatIcon} from "@angular/material/icon";
 import {ModalData} from "../models/ModalData";
 import {Modal} from "flowbite";
-import {AlbumModalComponent} from "../album-modal/album-modal.component";
+import {AlbumModalComponent} from "../album-components/album-modal/album-modal.component";
 
 @Component({
   selector: 'app-main',
@@ -156,15 +156,17 @@ export class MainComponent implements OnInit {
 
 //deals with drag and drop functionality
   drop(event: CdkDragDrop<Artist[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
+    if (this.draggedArtists.length < 5) {
+      if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
+        transferArrayItem(event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex);
+      }
+      this.manageDefaultArtist();
     }
-    this.manageDefaultArtist();
   }
 
 
