@@ -110,6 +110,7 @@ export class MainComponent implements OnInit {
         console.log(data);
         //remove items from recommendations
         this.resetDraggedArtists();
+        this.recommendedAlbums = [];
         //add retrieved data
         this.recommendedTracks = data.tracks.map((item: any) => new Track(item));
         this.getAlbums();
@@ -190,7 +191,6 @@ export class MainComponent implements OnInit {
   //this ensures duplicate values and invalid ids are not used in the call
   resetDraggedArtists(){
     this.draggedArtists = [this.defaultArtist];
-    this.recommendedAlbums = [];
     this.recommendedTracks = [];
     this.favoriteArtistsIds = [];
     this.defaultArtistRemoved = false;
@@ -226,6 +226,7 @@ export class MainComponent implements OnInit {
             console.log(data);
             //remove items from recommendations
             this.resetDraggedArtists();
+            this.recommendedAlbums = [];
             //add retrieved data
             this.recommendedTracks = data.tracks.map((item: any) => new Track(item));
             this.getAlbums();

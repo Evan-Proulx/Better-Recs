@@ -1,7 +1,9 @@
 <app-navbar></app-navbar>
 
 <div class="bg-gray-900 h-screen flex overflow-hidden" [class.blur]="modalOpen">
-<!-- //////////////SIDEBAR SEARCH////////////// -->
+  <!-- //////////////////////////////////////// -->
+  <!-- //////////////SIDEBAR SEARCH////////////// -->
+  <!-- //////////////////////////////////////// -->
   <aside id="default-sidebar" class="w-80 h-screen bg-gray-700 dark:bg-gray-800" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto">
       <!--    search input-->
@@ -27,9 +29,11 @@
       </div>
     </div>
   </aside>
+  <!-- //////////////////////////////////////// -->
   <!-- //////////////MAIN CONTENT////////////// -->
+  <!-- //////////////////////////////////////// -->
   <!--  Box to drag artists into-->
-  <div class="flex-1 p-4 xl:mx-80 mx-32 my-28 overflow-y-auto custom-scrollbar ">
+  <div class="flex-1 p-4 mx-32 my-28 overflow-y-auto custom-scrollbar ">
       <!--    this gives a tooltip for when the ? button is hovered over-->
       <span class="self-start text-4xl font-semibold whitespace-nowrap dark:text-gray-100">Drag Artists Here<button
         data-popover-target="popover-description" data-popover-placement="bottom-end" type="button"><svg
@@ -42,22 +46,26 @@
         <div class="p-3 space-y-2">
           <h3 class="font-semibold text-gray-900 dark:text-white">Drag artists your favorite artists into this box...</h3>
           <p>Clicking the "Get Recs" button will send the artists you chose to Spotify's servers and return back
-            recommended albums and songs!</p>
+            recommended albums and songs! (Up to 5 artists)</p>
         </div>
         <div data-popper-arrow></div>
       </div>
-  <!--    Drop Artist List-->
-      <div class="artist-container">
+    <!-- //////////////////////////////////////// -->
+    <!--    Drop Artist List-->
+    <!-- //////////////////////////////////////// -->
+    <div class="artist-container">
         <div cdkDropList
              #dropList="cdkDropList"
              [cdkDropListData]="draggedArtists"
              [cdkDropListConnectedTo]="[dragList]"
-             (cdkDropListDropped)="drop($event)">
+             (cdkDropListDropped)="drop($event)" class="w-full">
           <app-artist-list [artists]="draggedArtists" [isDetailed]="false"></app-artist-list>
         </div>
       </div>
     <app-rec-btns (getRecommendations)="getRecommendations()" (resetDraggedArtists)="resetDraggedArtists()" (selectedPopularity)="handlePopularity($event)"></app-rec-btns>
+    <!-- //////////////////////////////////////// -->
     <!--    Albums-->
+    <!-- //////////////////////////////////////// -->
     <div class="mt-24">
       <span class="self-start text-6xl font-semibold whitespace-nowrap dark:text-white">Your Recs</span>
       <button (click)="getUserTopTracks()" class="mx-2 bg-purple-100 text-purple-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-purple-400 border border-purple-400 hover:border-purple-300 hover:text-purple-300">
@@ -73,6 +81,9 @@
   </div>
 </div>
 
+<!-- //////////////////////////////////////// -->
+<!--Modal is displayed when album is clicked-->
+<!-- //////////////////////////////////////// -->
 <div *ngIf="modalOpen">
   <app-album-modal (close)="closeModal()" [modalData]="modalData"></app-album-modal>
 </div>
