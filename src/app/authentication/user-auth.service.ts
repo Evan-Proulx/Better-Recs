@@ -30,9 +30,11 @@ export class UserAuthService {
   }
 
   //extracts the code from the url
-  getCodeFromUrl() {
+  getCodeFromUrl(): string | null {
     const params = new URLSearchParams(window.location.search);
-    return params.get('code');
+    const code = params.get('code');
+    console.log('Extracted code from URL:', code);
+    return code;
   }
 
   //take code from url and uses authentication to get access and refresh token

@@ -15,6 +15,9 @@ import {Router} from "@angular/router";
   styleUrl: './auth-page.component.scss'
 })
 export class AuthPageComponent implements OnInit {
+
+  //once the authentication starts the spotify redirects to this page with the code
+  //the auth service handles the code and we navigate to the main page
   constructor(private userauth: UserAuthService, private router: Router) {}
   ngOnInit(): void {
     if (window.location.search.includes('code=')) {
@@ -28,7 +31,6 @@ export class AuthPageComponent implements OnInit {
         });
       }
   }
-
 
   authenticate(){
     this.userauth.authenticate();

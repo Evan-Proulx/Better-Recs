@@ -5,7 +5,6 @@ import {TestComponent} from "./test/test.component";
 
 export const routes: Routes = [
   {path: '', component: MainComponent},
-  {path: 'auth', component: AuthPageComponent},
   {path: 'test', component: TestComponent},
-  {path: 'callback', component: MainComponent},
+  {path: 'callback', component: AuthPageComponent},
 ];

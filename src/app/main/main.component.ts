@@ -62,8 +62,7 @@ export class MainComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService,
-              private artistService: ArtistService) {
+  constructor(private spotifyService: SpotifyApiService) {
   }
 
   ngOnInit(): void {

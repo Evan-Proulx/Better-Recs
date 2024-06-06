@@ -14,6 +14,6 @@ export class NavbarComponent {
 
   //sends user to auth page
   toAuth(){
-    this.router.navigate(['auth']); // Navigate to the main route
+    this.router.navigate(['callback']); // Navigate to the main route
   }
 }
