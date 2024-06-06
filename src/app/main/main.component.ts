@@ -71,8 +71,11 @@ export class MainComponent implements OnInit {
       next: (data) => {
         this.accessToken = data.access_token;
         console.log("TOKEN:", this.accessToken);
+        const authenticated = this.spotifyService.checkAuthenticated();
+        if (authenticated) {
+          this.getUserTopArtists();
+        }
         this.getTopAlbums();
-        this.getUserTopArtists();
       },
       error: (error) => {
         console.error("ERROR FETCHING TOKEN: ", error);

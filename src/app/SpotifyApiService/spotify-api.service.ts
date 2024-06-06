@@ -123,4 +123,9 @@ export class SpotifyApiService {
 
     return this.http.put<any>("https://api.spotify.com/v1/me/albums?", {ids: [id]}, {headers});
   }
+
+  checkAuthenticated(){
+    console.log("Authenticated?",this.userauth.getAccessToken() != null)
+    return this.userauth.getAccessToken() != null;
+  }
 }
