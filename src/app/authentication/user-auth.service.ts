@@ -61,7 +61,6 @@ export class UserAuthService {
     if (code) {
       const tokenData = await this.exchangeCodeForToken(code);
       if (tokenData && tokenData.access_token) {
-        console.log('Access Token Data:', tokenData);
         this.clearTokens();
         //store tokens
         localStorage.setItem('spotify_access_token', tokenData.access_token);
@@ -110,7 +109,6 @@ export class UserAuthService {
   }
 
   getAccessToken(): string | null {
-    console.log('Access Token:', localStorage.getItem('spotify_access_token'));
     return localStorage.getItem('spotify_access_token');
   }
 

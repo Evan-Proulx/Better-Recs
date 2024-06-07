@@ -8,7 +8,6 @@ import {MatFormField} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from "@angular/material/sidenav";
-import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {Album} from "../models/album";
 import {Track} from "../models/track";
 import {AlbumListComponent} from "../album-components/album-list/album-list.component";
@@ -44,8 +43,7 @@ export class TestComponent implements OnInit {
   recommendedAlbums: Album[] = [];
   userTopTracks: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService,
-              private artistService: ArtistService, private userauth: UserAuthService) {
+  constructor(private spotifyService: SpotifyApiService,private userauth: UserAuthService) {
   }
 
   ngOnInit(): void {

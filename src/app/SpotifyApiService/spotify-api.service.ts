@@ -14,6 +14,7 @@ export class SpotifyApiService {
   constructor(private http: HttpClient, private userauth: UserAuthService) {
   }
 
+  //Gets access token
   getToken(): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/x-www-form-urlencoded'
@@ -26,7 +27,7 @@ export class SpotifyApiService {
 
     return this.http.post<any>(this.tokenUrl, body.toString(), {headers});
   }
-
+  //searches for artists with given name
   getArtists(artist: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -35,8 +36,6 @@ export class SpotifyApiService {
 
     return this.http.get<any>(`https://api.spotify.com/v1/search?q=${artist}&type=artist`, {headers});
   }
-
-
   //Gets album recommendations for given artists
   getArtistRecommendations(token: string, artists: string[], popularity: number): Observable<any> {
     const headers = new HttpHeaders({
@@ -59,6 +58,8 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/recommendations?market=US&seed_tracks=${tracks}&limit=100&target_popularity=${popularity}`,
       {headers});
   }
+
+  //get spotify's top 20 tracks
   getTopAlbums(token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -69,6 +70,7 @@ export class SpotifyApiService {
       {headers});
   }
 
+  //gets singular album from id
   getAlbum(albumId: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -78,6 +80,7 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/albums/${albumId}`,
       {headers});
   }
+  //gets singular artist from id
   getArtist(artistId: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -87,6 +90,7 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/artists/${artistId}`,
       {headers});
   }
+  //gets new access token if the call returns a 401 error
   handleError(error: any) {
     if (error.status === 401) {
       this.userauth.refreshAccessToken();
@@ -103,6 +107,7 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/me/top/artists?limit=50`,
       {headers});
   }
+
   getUserTopTracks(): Observable<any> {
     const accessToken = this.userauth.getAccessToken();
     const headers = new HttpHeaders({
@@ -113,7 +118,7 @@ export class SpotifyApiService {
       `https://api.spotify.com/v1/me/top/tracks?limit=5`,
       {headers});
   }
-  //saves selected album to the users library
+  //saves selected album to the users spotify library
   saveAlbum(id: string): Observable<any> {
     const accessToken = this.userauth.getAccessToken();
     const headers = new HttpHeaders({
@@ -124,6 +129,8 @@ export class SpotifyApiService {
     return this.http.put<any>("https://api.spotify.com/v1/me/albums?", {ids: [id]}, {headers});
   }
 
+
+  //check if an access token has been set
   checkAuthenticated(){
     console.log("Authenticated?",this.userauth.getAccessToken() != null)
     return this.userauth.getAccessToken() != null;

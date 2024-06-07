@@ -23,8 +23,6 @@ export class AlbumModalComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   isSaved: boolean = false;
   album: Album |  undefined;
-
-
   constructor(private spotifyService: SpotifyApiService) {}
 
   closeModal(){
@@ -44,9 +42,6 @@ export class AlbumModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.modalData){
-    }
-
     console.log(this.modalData);
   }
 }

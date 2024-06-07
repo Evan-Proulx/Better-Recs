@@ -12,6 +12,7 @@ export class RecBtnsComponent {
   @Output() resetDraggedArtists = new EventEmitter<void>();
   @Output() selectedPopularity = new EventEmitter<number>();
 
+  //These methods communicate with the main component to call a method when these buttons are clicked
   onGetRecommendations() {
     this.getRecommendations.emit();
   }

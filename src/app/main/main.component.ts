@@ -7,13 +7,11 @@ import {Artist} from "../models/artist";
 import {Track} from "../models/track";
 import {Album} from "../models/album";
 import {SpotifyApiService} from "../SpotifyApiService/spotify-api.service";
-import {ArtistService} from "../artist-components/ArtistService/artist.service";
 import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {NavbarComponent} from "../navbar/navbar.component";
-import {RecBtnsComponent} from "../rec-btns/rec-btns.component";
+import {NavbarComponent} from "../ui-components/navbar/navbar.component";
+import {RecBtnsComponent} from "../ui-components/rec-btns/rec-btns.component";
 import {MatIcon} from "@angular/material/icon";
 import {ModalData} from "../models/ModalData";
-import {Modal} from "flowbite";
 import {AlbumModalComponent} from "../album-components/album-modal/album-modal.component";
 
 @Component({
@@ -69,7 +67,6 @@ export class MainComponent implements OnInit {
     this.spotifyService.getToken().subscribe({
       next: (data) => {
         this.accessToken = data.access_token;
-        console.log("TOKEN:", this.accessToken);
         const authenticated = this.spotifyService.checkAuthenticated();
         if (authenticated) {
           this.getUserTopArtists();
@@ -201,6 +198,8 @@ export class MainComponent implements OnInit {
   handlePopularity(popularity: number){
     this.selectedPopularity = popularity;
   }
+
+
   getUserTopArtists(): void {
     this.spotifyService.getUserTopArtists().subscribe({
       next: (data) => {
