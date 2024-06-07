@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.spotifyService.checkAuthenticated());
     this.authenticated = this.spotifyService.checkAuthenticated();
   }
 

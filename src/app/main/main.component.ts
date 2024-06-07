@@ -62,8 +62,7 @@ export class MainComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService) {
-  }
+  constructor(private spotifyService: SpotifyApiService) {}
 
   ngOnInit(): void {
     //Gets the access token when the app first loads

@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {UserAuthService} from "../user-auth.service";
 import {MatIcon} from "@angular/material/icon";
-import {NgOptimizedImage} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth-page',
   standalone: true,
-  imports: [
-    MatIcon,
-    NgOptimizedImage
-  ],
+    imports: [
+        MatIcon,
+        NgOptimizedImage,
+        NgIf
+    ],
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss'
 })
