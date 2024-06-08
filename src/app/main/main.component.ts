@@ -218,9 +218,10 @@ export class MainComponent implements OnInit {
     this.spotifyService.getUserTopTracks().subscribe({
       next: (data) => {
         console.log("Tracks", data);
-        const trackIds: string[] = data.items.map((track: any) => track.id);
-        console.log(trackIds);
-        this.favoriteTrackIds = trackIds;
+        //gets 5 random tracks from the data
+        const shuffledTracks = data.items.sort(() => 0.5 - Math.random());
+        const selectedTracks = shuffledTracks.slice(0, 5);
+        this.favoriteTrackIds = selectedTracks.map((track: any) => track.id);
         this.spotifyService.getTrackRecommendations(this.accessToken, this.favoriteTrackIds, this.selectedPopularity).subscribe({
           next: (data) => {
             console.log(data);

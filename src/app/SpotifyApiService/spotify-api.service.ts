@@ -115,7 +115,7 @@ export class SpotifyApiService {
       'Authorization': `Bearer ` + accessToken
     });
     return this.http.get<any>(
-      `https://api.spotify.com/v1/me/top/tracks?limit=5`,
+      `https://api.spotify.com/v1/me/top/tracks?limit=50`,
       {headers});
   }
   //saves selected album to the users spotify library
