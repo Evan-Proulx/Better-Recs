@@ -11,6 +11,7 @@ import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} f
 import {ArtistListComponent} from "../artist-components/artist-list/artist-list.component";
 import {Album} from "../models/album";
 import {UserAuthService} from "../authentication/user-auth.service";
+import {BackendService} from "../backend-api/backend.service";
 
 @Component({
   selector: 'app-test',
@@ -41,7 +42,9 @@ export class TestComponent implements OnInit {
   recommendedAlbums: Album[] = [];
   userTopTracks: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService,private userauth: UserAuthService) {
+  authToken: string = "";
+
+  constructor(private spotifyService: SpotifyApiService, private userauth: UserAuthService, private backend: BackendService) {
   }
 
   ngOnInit(): void {
@@ -55,6 +58,8 @@ export class TestComponent implements OnInit {
         console.error("ERROR FETCHING TOKEN: ", error);
       }
     });
+
+
   }
 
   getTopAlbums(): void {
@@ -95,7 +100,41 @@ export class TestComponent implements OnInit {
     })
   }
 
+  createUser() {
+    const credentials = {
+      name: "TestUser2",
+      email: "mirarin757@padvn.com",
+      password: "testuserpassword",
+      password_confirmation: "testuserpassword"
+    }
 
+    this.backend.createUser(credentials).subscribe({
+      next: (data) => {
+        console.log(data)
+        const token = data.data.token
+        console.log(token);
+      }, error: error => {
+        console.error('Error registering user:', error);
+      }
+    });
+  }
+
+  loginUser() {
+    const credentials = {
+      email: "mirarin757@padvn.com",
+      password: "testuserpassword",
+    }
+
+    this.backend.loginUser(credentials).subscribe({
+      next: (data) => {
+        console.log(data)
+        const token = data.data.token
+        console.log(token);
+      }, error: error => {
+        console.error('Error authenticating user:', error);
+      }
+    });
+  }
 
 
   // getAlbum(){
@@ -108,5 +147,5 @@ export class TestComponent implements OnInit {
   //     }
   //   });
   // }
-
 }
+

@@ -20,6 +20,12 @@ export class NavbarComponent implements OnInit {
   toAuth(){
     this.router.navigate(['callback']); // Navigate to the main route
   }
+  toLogin(){
+    this.router.navigate(['login']); // Navigate to the main route
+  }
+  toRegister(){
+    this.router.navigate(['register']); // Navigate to the main route
+  }
 
   ngOnInit(): void {
     console.log(this.spotifyService.checkAuthenticated());

@@ -1,4 +1,6 @@
 <div class="absolute top-0 right-0 m-2 p-2">
+    <button (click)="toLogin()">Login |</button>
+    <button (click)="toRegister()">Register</button>
     <button *ngIf="!authenticated" type="button" (click)="toAuth()"
             class="flex text-white bg-green-500 font-medium rounded-full text-lg px-5 py-2.5 text-center me-2 mb-2">
       Sign In With Spotify &#160;<img

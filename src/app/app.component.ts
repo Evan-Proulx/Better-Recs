@@ -5,11 +5,12 @@ import {ArtistComponent} from "./artist-components/artist/artist.component";
 import {initFlowbite} from "flowbite";
 import {MainComponent} from "./main/main.component";
 import {AuthPageComponent} from "./authentication/auth-page/auth-page.component";
+import {UserLoginComponent} from "./authentication/user-login/user-login.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TestComponent, ArtistComponent, MainComponent, AuthPageComponent],
+  imports: [RouterOutlet, TestComponent, ArtistComponent, MainComponent, AuthPageComponent, UserLoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
