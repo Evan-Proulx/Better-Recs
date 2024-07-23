@@ -1,0 +1,10 @@
+<div class="bg-gray-900  overflow-y-auto h-screen">
+  <div class="mt-24 mx-32 my-28">
+    <span class="self-start text-6xl font-semibold whitespace-nowrap dark:text-white">Your Saved Albums</span>
+    <div class=" p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+      <div *ngIf="savedAlbums">
+        <app-album-list [albums]="savedAlbums" [token]="this.accessToken" (modalData)="handleModalDisplayed($event)"></app-album-list>
+      </div>
+    </div>
+  </div>
+</div>

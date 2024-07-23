@@ -4,6 +4,7 @@ import {MainComponent} from "./main/main.component";
 import {AuthPageComponent} from "./authentication/auth-page/auth-page.component";
 import {UserLoginComponent} from "./authentication/user-login/user-login.component";
 import {UserRegisterComponent} from "./authentication/user-register/user-register.component";
+import {SavedAlbumsComponent} from "./album-components/saved-albums/saved-albums.component";
 
 export const routes: Routes = [
   {path: '', component: MainComponent},
@@ -11,4 +12,5 @@ export const routes: Routes = [
   {path: 'callback', component: AuthPageComponent},
   {path: 'register', component: UserRegisterComponent},
   {path: 'login', component: UserLoginComponent},
+  {path: 'saved-albums', component: SavedAlbumsComponent},
 ];

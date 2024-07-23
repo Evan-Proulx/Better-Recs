@@ -71,13 +71,13 @@ export class SpotifyApiService {
   }
 
   //gets singular album from id
-  getAlbum(albumId: string, token: string): Observable<any> {
+  getAlbums(albumIds: string[], token: string): Observable<any> {
     const headers = new HttpHeaders({
       'content-type': 'application/json',
       'Authorization': `Bearer ` + token
     });
     return this.http.get<any>(
-      `https://api.spotify.com/v1/albums/${albumId}`,
+      `https://api.spotify.com/v1/albums?ids=${albumIds}`,
       {headers});
   }
   //gets singular artist from id

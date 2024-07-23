@@ -13,6 +13,7 @@ import {RecBtnsComponent} from "../ui-components/rec-btns/rec-btns.component";
 import {MatIcon} from "@angular/material/icon";
 import {ModalData} from "../models/ModalData";
 import {AlbumModalComponent} from "../album-components/album-modal/album-modal.component";
+import {BackendService} from "../backend-api/backend.service";
 
 @Component({
   selector: 'app-main',
@@ -60,7 +61,7 @@ export class MainComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService) {}
+  constructor(private spotifyService: SpotifyApiService, private backend: BackendService) {}
 
   ngOnInit(): void {
     //Gets the access token when the app first loads
@@ -212,6 +213,8 @@ export class MainComponent implements OnInit {
       }
     });
   }
+
+
 
   //gets the users top tracks and returns recommendations based on them
   getUserTopTracks() {
