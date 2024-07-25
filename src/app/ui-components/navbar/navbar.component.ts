@@ -16,10 +16,10 @@ import {MatIcon} from "@angular/material/icon";
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent implements OnInit {
-  authenticated = false;
-  constructor(private router: Router, private spotifyService: SpotifyApiService, private backend: BackendService) {}
+  spotifyAuthenticated = false;
+  loggedIn: boolean = false;
+  constructor(private router: Router, private spotifyService: SpotifyApiService) {}
 
-  //sends user to auth page
   toAuth(){
     this.router.navigate(['callback']);
   }
@@ -29,34 +29,23 @@ export class NavbarComponent implements OnInit {
   toRegister(){
     this.router.navigate(['register']);
   }
-  toSaved(){
-    this.router.navigate(['saved-albums']);
-  }
-
-  // savedAlbums(){
-  //   let token = localStorage.getItem('access_token');
-  //   let ids: string[];
-  //   console.log("TOken", token);
-  //   if(token != null){
-  //     this.backend.getAlbums(token).subscribe({
-  //       next: (data) => {
-  //         console.log('ALBUMS:', data);
-  //         ids = data.data.map((album: { spotify_id: any; }) => album.spotify_id);
-  //         console.log(ids);
-  //       },
-  //       error: (error) => {
-  //         console.error("ERROR Getting saved albums: ", error);
-  //       }
-  //     });
-  //   }else{
-  //     console.log("token null")
-  //   }
-  // }
 
 
   ngOnInit(): void {
     console.log(this.spotifyService.checkAuthenticated());
-    this.authenticated = this.spotifyService.checkAuthenticated();
+    this.spotifyAuthenticated = this.spotifyService.checkAuthenticated();
+    this.checkLoggedIn()
+  }
+
+  //checks if user is logged in
+  checkLoggedIn(){
+    this.loggedIn = !!localStorage.getItem('access_token');
+  }
+  //removes the access token from local storage and refreshes the page
+  logout(){
+    localStorage.removeItem('access_token');
+    this.checkLoggedIn();
+    this.router.navigate(['']);
   }
 
 

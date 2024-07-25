@@ -7,6 +7,8 @@ import {BackendService} from "../../backend-api/backend.service";
 import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
 import {Track} from "../../models/track";
 import {ModalData} from "../../models/ModalData";
+import {AlbumModalComponent} from "../album-modal/album-modal.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-saved-albums',
@@ -14,7 +16,8 @@ import {ModalData} from "../../models/ModalData";
   imports: [
     AlbumListComponent,
     MatIcon,
-    NgIf
+    NgIf,
+    AlbumModalComponent
   ],
   templateUrl: './saved-albums.component.html',
   styleUrl: './saved-albums.component.scss'
@@ -27,22 +30,35 @@ export class SavedAlbumsComponent implements OnInit {
   modalOpen: boolean = false;
   modalData: ModalData | undefined;
 
-  constructor(private backend: BackendService, private spotifyService: SpotifyApiService) {
-  }
+  loggedIn: boolean = false;
+
+  constructor(private backend: BackendService, private spotifyService: SpotifyApiService, private router: Router) {}
 
   ngOnInit() {
-    this.spotifyService.getToken().subscribe({
-      next: (data) => {
-        this.accessToken = data.access_token;
-      },
-      error: (error) => {
-        console.error("ERROR FETCHING TOKEN: ", error);
-      }
-    });
-
-    this.getSavedAlbums();
+    this.checkLoggedIn()
+    if (this.loggedIn){
+      this.spotifyService.getToken().subscribe({
+        next: (data) => {
+          this.accessToken = data.access_token;
+        },
+        error: (error) => {
+          console.error("ERROR FETCHING TOKEN: ", error);
+        }
+      });
+      this.getSavedAlbums();
+    }
   }
 
+  checkLoggedIn(){
+    this.loggedIn = !!localStorage.getItem('access_token');
+  }
+
+  toHome() {
+    this.router.navigate(['']);
+  }
+  toLogin() {
+    this.router.navigate(['login']);
+  }
 
   //gets the users saved albums from the backend
   getSavedAlbums() {
@@ -102,5 +118,8 @@ export class SavedAlbumsComponent implements OnInit {
   handleModalDisplayed(modalData: ModalData) {
     this.modalData = modalData;
     this.modalOpen = true;
+  }
+  closeModal(){
+    this.modalOpen = false;
   }
 }

@@ -1,14 +1,18 @@
 <div class="absolute top-0 right-0 m-2 p-2">
-  <button (click)="toSaved()" type="button" class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-    <mat-icon fontIcon="favorite" class="text-md p-0"></mat-icon>
-  Saved Albums
-</button>
-    <button (click)="toLogin()" class="text-white">Login|</button>
-    <button (click)="toRegister()" class="text-white"> Register</button>
-    <button *ngIf="!authenticated" type="button" (click)="toAuth()"
+  <div *ngIf="!loggedIn;else notLoggedIn" class="p-4">
+    <button (click)="toLogin()" class="text-white hover:text-gray-300">Login</button>
+    <hr>
+    <button (click)="toRegister()" class="text-white hover:text-gray-300">Register</button>
+  </div>
+
+    <button *ngIf="!spotifyAuthenticated" type="button" (click)="toAuth()"
             class="flex text-white bg-green-500 font-medium rounded-full text-lg px-5 py-2.5 text-center me-2 mb-2">
       Sign In With Spotify &#160;<img
       src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_White.png" alt=""
       class="w-6 h-6">
     </button>
 </div>
+
+<ng-template #notLoggedIn class="p-4">
+  <button (click)="logout()" class="text-white hover:text-gray-300 p-4">Logout</button>
+</ng-template>

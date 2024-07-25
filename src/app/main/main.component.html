@@ -1,5 +1,4 @@
 <app-navbar></app-navbar>
-
 <div class="bg-gray-900 h-screen flex overflow-hidden" [class.blur]="modalOpen">
   <!-- //////////////////////////////////////// -->
   <!-- //////////////SIDEBAR SEARCH////////////// -->
@@ -72,6 +71,10 @@
       <mat-icon fontIcon="bolt" class="text-md p-0"></mat-icon>
       For You
     </button>
+      <button (click)="toSaved()" class="mx-2 bg-green-100 text-green-800 text-sm font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-green-400 border border-green-400 hover:border-green-300 hover:text-green-300 saved-btn">
+        <mat-icon fontIcon="save" class="text-md p-0"></mat-icon>
+        Saved Albums
+      </button>
       <div class=" p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
         <div *ngIf="recommendedAlbums">
           <app-album-list [albums]="recommendedAlbums" [token]="this.accessToken" (modalData)="handleModalDisplayed($event)"></app-album-list>

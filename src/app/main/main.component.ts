@@ -14,6 +14,7 @@ import {MatIcon} from "@angular/material/icon";
 import {ModalData} from "../models/ModalData";
 import {AlbumModalComponent} from "../album-components/album-modal/album-modal.component";
 import {BackendService} from "../backend-api/backend.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main',
@@ -61,7 +62,7 @@ export class MainComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
 
-  constructor(private spotifyService: SpotifyApiService, private backend: BackendService) {}
+  constructor(private spotifyService: SpotifyApiService, private backend: BackendService, private router: Router) {}
 
   ngOnInit(): void {
     //Gets the access token when the app first loads
@@ -244,6 +245,10 @@ export class MainComponent implements OnInit {
         console.error("ERROR FETCHING RECOMMENDATIONS: ", error);
       }
     })
+  }
+
+  toSaved(){
+    this.router.navigate(['saved-albums']);
   }
 
   handleModalDisplayed(modalData: ModalData){

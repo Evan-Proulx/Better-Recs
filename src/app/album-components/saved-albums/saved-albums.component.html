@@ -1,10 +1,36 @@
 <div class="bg-gray-900  overflow-y-auto h-screen">
-  <div class="mt-24 mx-32 my-28">
-    <span class="self-start text-6xl font-semibold whitespace-nowrap dark:text-white">Your Saved Albums</span>
-    <div class=" p-4 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
-      <div *ngIf="savedAlbums">
-        <app-album-list [albums]="savedAlbums" [token]="this.accessToken" (modalData)="handleModalDisplayed($event)"></app-album-list>
+  <div *ngIf="loggedIn;else notLoggedIn">
+    <!--  back button-->
+    <div (click)="toHome()" class="text-md text-white p-0 absolute top-5 left-5 flex items-center hover:cursor-pointer hover:text-gray-400">
+      <mat-icon fontIcon="arrow_back" class="m-2"></mat-icon>
+      <span> Go Back</span>
+    </div>
+    <!--  Main-->
+    <div class="mt-24 mx-32 my-28">
+      <span class="self-start xl:text-6xl text-4xl xl:mx-52 font-semibold whitespace-nowrap dark:text-white">Your Saved Albums</span>
+      <div class=" p-4 xl:mx-52 border-2 border-gray-200 border-solid rounded-lg dark:border-gray-700">
+        <div *ngIf="savedAlbums">
+          <app-album-list [albums]="savedAlbums" [token]="this.accessToken" (modalData)="handleModalDisplayed($event)"></app-album-list>
+        </div>
       </div>
     </div>
   </div>
+
+  <ng-template #notLoggedIn>
+    <div class="flex flex-col items-center justify-center h-screen">
+      <div class="text-2xl text-white">
+        Nothing to see here! Login to see saved albums.<br>
+      </div>
+      <button (click)="toLogin()" class=" mt-4 px-8 py-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        Login
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- //////////////////////////////////////// -->
+<!--Modal is displayed when album is clicked-->
+<!-- //////////////////////////////////////// -->
+<div *ngIf="modalOpen">
+  <app-album-modal (close)="closeModal()" [modalData]="modalData"></app-album-modal>
 </div>
