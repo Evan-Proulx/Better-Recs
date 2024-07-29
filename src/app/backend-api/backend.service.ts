@@ -37,6 +37,15 @@ export class BackendService {
     return this.http.get<any>('http://127.0.0.1:8000/api/albums', {headers});
   }
 
+  deleteAlbum(token: string, id: string){
+    const headers = new HttpHeaders({
+      'content-type': 'application/json',
+      'Authorization': `Bearer ` + token
+    });
+
+    return this.http.get<any>(`http://127.0.0.1:8000/api/albums/${id}`, {headers});
+  }
+
   addAlbum(data: ModalData, token: string){
     const headers = new HttpHeaders({
       'content-type': 'application/json',
@@ -55,6 +64,8 @@ export class BackendService {
 
     return this.http.post<any>(`http://127.0.0.1:8000/api/albums`, albumData, { headers });
   }
+
+
 
 
 

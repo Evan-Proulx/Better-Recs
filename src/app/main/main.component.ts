@@ -23,28 +23,14 @@ import {Router} from "@angular/router";
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
-export class MainComponent implements OnInit {
-  //Default artist is needed for the drag and drop functionality
-  defaultArtist: Artist = {
-    id: '0',
-    name: 'Default Artist',
-    genres: ['Default Genre'],
-    popularity: 0,
-    followers: 0,
-    externalUrl: 'https://default-url.com',
-    images: [{url: '', height: 100, width: 100}],
-    isFavorite: false
-  };
 
+export class MainComponent implements OnInit {
   //This is shared with the album list(might be bad)
   accessToken: string = "";
   //text in the artist search bar
   searchText: string = "";
   //artists retrieved from the search
   selectedArtists: Artist[] = [];
-  //artists that have been dropped from the selected artists
-  draggedArtists = [this.defaultArtist];
-  defaultArtistRemoved: boolean = false;
   //The ids of the dragged artists
   favoriteArtistsIds: string[] = [];
   favoriteTrackIds: string[] = [];
@@ -62,6 +48,21 @@ export class MainComponent implements OnInit {
   private artistId: string = "";
   private artists: string[] = [];
 
+  //Default artist is needed for the drag and drop functionality
+  defaultArtist: Artist = {
+    id: '0',
+    name: 'Default Artist',
+    genres: ['Default Genre'],
+    popularity: 0,
+    followers: 0,
+    externalUrl: 'https://default-url.com',
+    images: [{url: '', height: 100, width: 100}],
+    isFavorite: false
+  };
+  //artists that have been dropped from the selected artists
+  draggedArtists = [this.defaultArtist];
+  defaultArtistRemoved: boolean = false;
+
   constructor(private spotifyService: SpotifyApiService, private backend: BackendService, private router: Router) {}
 
   ngOnInit(): void {
@@ -69,10 +70,7 @@ export class MainComponent implements OnInit {
     this.spotifyService.getToken().subscribe({
       next: (data) => {
         this.accessToken = data.access_token;
-        const authenticated = this.spotifyService.checkAuthenticated();
-        if (authenticated) {
-          this.getUserTopArtists();
-        }
+        this.getUserTopArtists()
         this.getTopAlbums();
       },
       error: (error) => {

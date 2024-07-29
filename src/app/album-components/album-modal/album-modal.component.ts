@@ -21,6 +21,7 @@ import {convertToParamMap} from "@angular/router";
   styleUrl: './album-modal.component.scss'
 })
 export class AlbumModalComponent implements OnInit {
+  @Input() savedComponent: boolean = false;
   @Input() modalData: ModalData | undefined;
   @Output() close = new EventEmitter<void>();
   isSaved: boolean = false;
@@ -58,6 +59,22 @@ export class AlbumModalComponent implements OnInit {
       });
     }else{
       console.log("token null")
+    }
+  }
+
+  deleteAlbum( id: string){
+    let token = localStorage.getItem('access_token');
+    if(token != null) {
+      this.backend.deleteAlbum(token, id).subscribe({
+        next: (data) => {
+          console.log('album deleted', data);
+        },
+        error: (error) => {
+          console.error("ERROR SAVING ALBUM: ", error);
+        }
+      })
+    }else{
+      console.error("ERROR DELETING ALBUM: ", error);
     }
   }
 
