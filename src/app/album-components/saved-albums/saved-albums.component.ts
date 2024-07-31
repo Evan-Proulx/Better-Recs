@@ -60,6 +60,7 @@ export class SavedAlbumsComponent implements OnInit {
     this.router.navigate(['login']);
   }
 
+
   //gets the users saved albums from the backend
   getSavedAlbums() {
     let access_token = localStorage.getItem('access_token');
@@ -114,6 +115,11 @@ export class SavedAlbumsComponent implements OnInit {
     }
   }
 
+  //when an album is deleted on the modal the page is refreshed
+  refreshPage() {
+    this.router.navigate(['/saved-albums']);
+    console.log("refreshing...");
+  }
   //logic for displaying the modal
   handleModalDisplayed(modalData: ModalData) {
     this.modalData = modalData;

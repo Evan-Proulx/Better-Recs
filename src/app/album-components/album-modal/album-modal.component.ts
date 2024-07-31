@@ -4,7 +4,6 @@ import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {Album} from "../../models/album";
 import {SpotifyApiService} from "../../SpotifyApiService/spotify-api.service";
 import {ModalData} from "../../models/ModalData";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {BackendService} from "../../backend-api/backend.service";
 import {convertToParamMap} from "@angular/router";
 
@@ -24,6 +23,7 @@ export class AlbumModalComponent implements OnInit {
   @Input() savedComponent: boolean = false;
   @Input() modalData: ModalData | undefined;
   @Output() close = new EventEmitter<void>();
+  @Output() deleted = new EventEmitter<void>();
   isSaved: boolean = false;
   album: Album |  undefined;
   constructor(private spotifyService: SpotifyApiService, private backend: BackendService) {}
@@ -32,17 +32,23 @@ export class AlbumModalComponent implements OnInit {
     this.close.emit();
   }
 
-  // saveAlbum(id: string){
-  //   this.spotifyService.saveAlbum(id).subscribe({
-  //     next: (data) => {
-  //       console.log('album saved', data);
-  //       this.isSaved = true;
-  //     },
-  //     error: (error) => {
-  //       console.error("ERROR FETCHING TOKEN: ", error);
-  //     }
-  //   });
-  // }
+  refreshModal(){
+    this.deleted.emit();
+  }
+
+  //adds album to users spotify library
+  addToSpotify(id: string){
+    this.spotifyService.saveAlbum(id).subscribe({
+      next: (data) => {
+        console.log('album saved', data);
+        this.isSaved = true;
+        this.closeModal();
+      },
+      error: (error) => {
+        console.error("ERROR FETCHING TOKEN: ", error);
+      }
+    });
+  }
 
   //saves album to users saved albums
   saveAlbum(data: ModalData){
@@ -62,19 +68,22 @@ export class AlbumModalComponent implements OnInit {
     }
   }
 
+  //removes album from saved albums
   deleteAlbum( id: string){
     let token = localStorage.getItem('access_token');
     if(token != null) {
       this.backend.deleteAlbum(token, id).subscribe({
         next: (data) => {
           console.log('album deleted', data);
+          this.closeModal();
+          this.refreshModal();
         },
         error: (error) => {
-          console.error("ERROR SAVING ALBUM: ", error);
+          console.error("ERROR DELETING ALBUM: ", error);
         }
       })
     }else{
-      console.error("ERROR DELETING ALBUM: ", error);
+      console.error("ERROR DELETING ALBUM: ");
     }
   }
 

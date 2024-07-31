@@ -1,4 +1,4 @@
-<div class="bg-gray-900  overflow-y-auto h-screen">
+<div class="bg-gray-900  overflow-y-auto h-screen" [class.blur]="modalOpen">
   <div *ngIf="loggedIn;else notLoggedIn">
     <!--  back button-->
     <div (click)="toHome()" class="text-md text-white p-0 absolute top-5 left-5 flex items-center hover:cursor-pointer hover:text-gray-400">
@@ -32,5 +32,5 @@
 <!--Modal is displayed when album is clicked-->
 <!-- //////////////////////////////////////// -->
 <div *ngIf="modalOpen">
-  <app-album-modal (close)="closeModal()" [modalData]="modalData"></app-album-modal>
+  <app-album-modal (close)="closeModal()" (deleted)="refreshPage()" [savedComponent]="true" [modalData]="modalData"></app-album-modal>
 </div>

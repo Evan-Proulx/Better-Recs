@@ -43,7 +43,7 @@ export class BackendService {
       'Authorization': `Bearer ` + token
     });
 
-    return this.http.get<any>(`http://127.0.0.1:8000/api/albums/${id}`, {headers});
+    return this.http.delete<any>(`http://127.0.0.1:8000/api/albums/${id}`, {headers});
   }
 
   addAlbum(data: ModalData, token: string){
