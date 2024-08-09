@@ -117,8 +117,10 @@ export class SavedAlbumsComponent implements OnInit {
 
   //when an album is deleted on the modal the page is refreshed
   refreshPage() {
-    this.router.navigate(['/saved-albums']);
-    console.log("refreshing...");
+    this.router.navigateByUrl('', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['saved-albums']);
+      console.log("refreshing...");
+    });
   }
   //logic for displaying the modal
   handleModalDisplayed(modalData: ModalData) {

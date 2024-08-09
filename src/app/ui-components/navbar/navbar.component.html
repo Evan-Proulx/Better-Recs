@@ -1,18 +1,19 @@
 <div class="absolute top-0 right-0 m-2 p-2">
-  <div *ngIf="!loggedIn;else notLoggedIn" class="p-4">
+  <div *ngIf="!loggedIn;else isLoggedIn" class="p-4">
     <button (click)="toLogin()" class="text-white hover:text-gray-300">Login</button>
     <hr>
     <button (click)="toRegister()" class="text-white hover:text-gray-300">Register</button>
   </div>
-
-    <button *ngIf="!spotifyAuthenticated" type="button" (click)="toAuth()"
-            class="flex text-white bg-green-500 font-medium rounded-full text-lg px-5 py-2.5 text-center me-2 mb-2">
-      Sign In With Spotify &#160;<img
-      src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_White.png" alt=""
-      class="w-6 h-6">
-    </button>
 </div>
 
-<ng-template #notLoggedIn class="p-4">
+<div class="absolute bottom-0 right-0 m-2 p-2">
+  <button *ngIf="!spotifyAuthenticated" type="button" title="Sync with spotify" (click)="toAuth()"
+          class="flex text-white bg-gray-800 font-medium rounded-2xl text-lg px-4 py-2.5 text-center spotify-btn">
+    <img src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_White.png" alt="" class="w-6 h-6">
+  </button>
+</div>
+
+
+<ng-template #isLoggedIn class="p-4">
   <button (click)="logout()" class="text-white hover:text-gray-300 p-4">Logout</button>
 </ng-template>

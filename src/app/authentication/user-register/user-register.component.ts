@@ -38,6 +38,10 @@ export class UserRegisterComponent {
     }
   }
 
+  toLogin() {
+    this.router.navigate(['login']);
+  }
+
   //register a new user and returns auth token
   createUser(credentials: any) {
     this.backend.createUser(credentials).subscribe({

@@ -44,9 +44,14 @@ export class NavbarComponent implements OnInit {
   //removes the access token from local storage and refreshes the page
   logout(){
     localStorage.removeItem('access_token');
+    localStorage.removeItem('spotify_access_token');
+    localStorage.removeItem('spotify_refresh_token');
     this.checkLoggedIn();
-    this.router.navigate(['']);
-  }
+
+    this.router.navigateByUrl('/callback', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['']);
+      console.log("refreshing...");
+    });  }
 
 
 

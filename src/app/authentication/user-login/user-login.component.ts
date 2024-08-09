@@ -32,6 +32,10 @@ export class UserLoginComponent {
     }
   }
 
+  toRegister(){
+    this.router.navigate(['register']);
+  }
+
   //authenticate user and returns auth token
   loginUser(credentials: any) {
     this.backend.loginUser(credentials).subscribe({

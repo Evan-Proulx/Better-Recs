@@ -6,6 +6,7 @@ import {UserLoginComponent} from "./authentication/user-login/user-login.compone
 import {UserRegisterComponent} from "./authentication/user-register/user-register.component";
 import {SavedAlbumsComponent} from "./album-components/saved-albums/saved-albums.component";
 
+
 export const routes: Routes = [
   {path: '', component: MainComponent},
   {path: 'test', component: TestComponent},
