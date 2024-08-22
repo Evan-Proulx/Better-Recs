@@ -16,6 +16,7 @@ import {Router} from "@angular/router";
 })
 export class UserLoginComponent {
   registerForm: FormGroup;
+  loginError: boolean = false;
   constructor(private formBuilder: FormBuilder, private backend: BackendService, private router: Router) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -29,6 +30,8 @@ export class UserLoginComponent {
       //create object with credentials
       const credentials = this.registerForm.value;
       this.loginUser(credentials);
+    }else{
+      this.loginError = true;
     }
   }
 
@@ -47,6 +50,7 @@ export class UserLoginComponent {
         // Navigate to the main route
         this.router.navigate(['']);
       }, error: error => {
+        this.loginError = true;
         console.error('Error authenticating user:', error);
       }
     });

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../enviroment";
-import {mergeMap, Observable, retryWhen} from "rxjs";
 
 @Injectable({
   providedIn: 'root'

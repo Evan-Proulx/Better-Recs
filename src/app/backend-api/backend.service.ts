@@ -14,7 +14,8 @@ export class BackendService {
 
   createUser(data: any): Observable<ApiResponse>{
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     });
 
     return this.http.post<ApiResponse>('http://127.0.0.1:8000/api/reg', data, {headers});

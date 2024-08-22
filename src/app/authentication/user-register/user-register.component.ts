@@ -18,13 +18,31 @@ export class UserRegisterComponent {
   registerForm: FormGroup;
   @Input() isNewUser?: boolean;
 
+  emailUsed: boolean = false;
+
   constructor(private formBuilder: FormBuilder, private backend: BackendService, private router: Router) {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      password_confirmation: ['', Validators.required]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      password_confirmation: ['', [Validators.required, Validators.minLength(8)]]
     });
+  }
+
+  get name(){
+    return this.registerForm.get('name');
+  }
+
+  get email(){
+    return this.registerForm.get('email');
+  }
+
+  get password(){
+    return this.registerForm.get('password');
+  }
+
+  get password_confirmation(){
+    return this.registerForm.get('password_confirmation');
   }
 
   onSubmit() {
@@ -33,8 +51,6 @@ export class UserRegisterComponent {
       //create object with credentials
       const credentials = this.registerForm.value;
       this.createUser(credentials);
-      // Navigate to the main route
-      this.router.navigate(['']);
     }
   }
 
@@ -50,8 +66,12 @@ export class UserRegisterComponent {
         //extract api-token and store in local storage
         const token = data.data.token
         localStorage.setItem('access_token', token);
+        // Navigate to the main route
+        this.router.navigate(['']);
       }, error: error => {
         console.error('Error registering user:', error);
+        //sets error message on the email field
+        this.emailUsed = true;
       }
     });
   }
