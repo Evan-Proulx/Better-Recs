@@ -23,13 +23,17 @@ Better Recs is aimed at giving music listeners an easy and more streamlined appr
 4. Add them to the `enviroment.ts` file in the root directory
 5. Once the app is running, click on the Spotify logo in the bottom right. You will be prompted to sign in. Once signed in, you account will be connected and the app will be personalized to your music taste.
 
+## Running The Backend
+- Clone the backend repo [here](https://github.com/Evan-Proulx/BetterRecs-backend) and follow the instructions in the README
+- Now will now be able to create an account and store albums
+
 ## Development server⚡️
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Contributing 🤝
 Contributions are welcome! Please fork the repository and submit a pull request. For major changes, please open an issue to discuss what you would like to change.
 
-## Authors
+## Author
 
 - [@Evan-Proulx](https://www.github.com/Evan-Proulx)
 
