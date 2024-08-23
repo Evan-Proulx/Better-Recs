@@ -8,7 +8,7 @@
     }
   },
   "projects": {
-    "SpotifyApp": {
+    "BetterRecs": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SpotifyApp:build:production"
+              "buildTarget": "BetterRecs:build:production"
             },
             "development": {
-              "buildTarget": "SpotifyApp:build:development"
+              "buildTarget": "BetterRecs:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "SpotifyApp:build"
+            "buildTarget": "BetterRecs:build"
           }
         },
         "test": {
